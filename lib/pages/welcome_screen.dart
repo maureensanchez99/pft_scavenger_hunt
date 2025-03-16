@@ -100,7 +100,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
                   ..scale(_zoomScale),
                 transformAlignment: Alignment.center,
                 child: Image.asset(
-                  'assets/tiger.png',
+                  'assets/lsu_logo.png',
                   width: 150,
                   height: 150,
                 ),
