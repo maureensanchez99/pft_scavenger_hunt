@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'bengalbots_lab.dart';
 
 class CapstoneStairs extends StatefulWidget {
   const CapstoneStairs({super.key});
@@ -50,7 +51,7 @@ class _CapstoneStairsState extends State<CapstoneStairs> with SingleTickerProvid
     super.dispose();
   }
 
-  void _checkAnswers() {
+  void _checkAnswer() {
     bool allCorrect = true;
     for (int i = 0; i < scrambledWords.length; i++) {
       setState(() {
@@ -78,7 +79,7 @@ class _CapstoneStairsState extends State<CapstoneStairs> with SingleTickerProvid
         return AlertDialog(
           title: const Text('Clue Revealed!'),
           content: const Text(
-            'Where in PFT can you see this clue?',
+            'Where in PFT can you see this clue? Head to this place next.',
           ),
           actions: <Widget>[
             TextButton(
@@ -206,7 +207,7 @@ class _CapstoneStairsState extends State<CapstoneStairs> with SingleTickerProvid
                 ),
                 const SizedBox(height: 20),
                 ElevatedButton(
-                  onPressed: _checkAnswers,
+                  onPressed: _checkAnswer,
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 40,
@@ -216,7 +217,7 @@ class _CapstoneStairsState extends State<CapstoneStairs> with SingleTickerProvid
                     foregroundColor: lsuPurple,
                   ),
                   child: const Text(
-                    'Check Answers',
+                    'Check Answer',
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
