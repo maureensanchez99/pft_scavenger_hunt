@@ -52,7 +52,8 @@ class _WelcomeScreenState extends State<WelcomeScreen>
       Navigator.of(context)
           .push(
         PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) => PuzzleHurt(),
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              PuzzleScreen(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return FadeTransition(
               opacity: animation,
