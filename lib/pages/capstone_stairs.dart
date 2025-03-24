@@ -15,9 +15,6 @@ class _CapstoneStairsState extends State<CapstoneStairs> with SingleTickerProvid
   
   late AnimationController _animationController;
   
-  final List<String> scrambledWords = [
-    "BOGTBLEANS",
-  ];
 
   final List<String> correctWords = [
     "BENGALBOTS",
