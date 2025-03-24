@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'pages/welcome_screen.dart';
+import 'pages/panera_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFF461D7C)),
         useMaterial3: true,
       ),
-      home: const WelcomeScreen(),
+      home: const PaneraQuiz(),
 
     );
   }
