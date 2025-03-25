@@ -58,6 +58,7 @@ class _PaneraQuizState extends State<PaneraQuiz>
                 child: Container(
                   margin: const EdgeInsets.all(16.0),
                   padding: const EdgeInsets.all(24.0),
+                  constraints: const BoxConstraints(maxWidth: 500),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(8.0),
