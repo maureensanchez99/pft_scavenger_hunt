@@ -109,18 +109,6 @@ class _CapstoneStairsState extends State<CapstoneStairs> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: lsuGold,
-        foregroundColor: lsuPurple,
-        title: const Text(
-          'Anagram Challenge',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        centerTitle: true,
-      ),
       body: Container(
         color: lsuPurple, // Static background color
         child: Center(
@@ -128,6 +116,14 @@ class _CapstoneStairsState extends State<CapstoneStairs> {
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: <Widget>[
+                const Text(
+                  'Anagram Challenge',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w700,
+                    color: const Color.fromRGBO(253, 208, 35, 1),
+                  ),
+                ),
                 SizedBox(height: 25.0,),
                 Text(
                   'Wooden rails and hidden signs\n'
@@ -137,15 +133,15 @@ class _CapstoneStairsState extends State<CapstoneStairs> {
                   style: TextStyle(
                     fontFamily: 'ProximaNova',
                     fontStyle: FontStyle.italic,
-                    fontWeight: FontWeight.w800,
-                    fontSize: 30,
-                    color: Color.white,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 20,
+                    color: Colors.white,
                   ),
                 ),
                 SizedBox(height: 25.0,),
                 const Text(
                   'Unscramble the word to reveal the clue:',
-                  style: TextStyle(fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 15, color: Colors.white, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 20),
                 Expanded(
@@ -169,7 +165,10 @@ class _CapstoneStairsState extends State<CapstoneStairs> {
                                     decoration: InputDecoration(
                                       contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
                                       hintText: 'Enter word',
-                                      hintStyle: const TextStyle(color: Colors.white54),
+                                      hintStyle: const TextStyle(
+                                        color: Colors.white54, 
+                                        fontStyle: FontStyle.italic
+                                      ),
                                       border: const OutlineInputBorder(),
                                       enabledBorder: const OutlineInputBorder(
                                         borderSide: BorderSide(color: Colors.white70),
@@ -217,6 +216,14 @@ class _CapstoneStairsState extends State<CapstoneStairs> {
                   ),
                 ),
                 const SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () async {
+
+                  },
+                  child: const Text(
+                    'BengalbotsLab',
+                  ),
+                ),
               ],
             ),
           ),
