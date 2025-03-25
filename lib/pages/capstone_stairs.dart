@@ -128,6 +128,21 @@ class _CapstoneStairsState extends State<CapstoneStairs> {
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: <Widget>[
+                SizedBox(height: 25.0,),
+                Text(
+                  'Wooden rails and hidden signs\n'
+                  'A scrambled word between the lines\n'
+                  'Look to the side, don’t miss your cue\n',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: 'ProximaNova',
+                    fontStyle: FontStyle.italic,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 30,
+                    color: Color.white,
+                  ),
+                ),
+                SizedBox(height: 25.0,),
                 const Text(
                   'Unscramble the word to reveal the clue:',
                   style: TextStyle(fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold),
