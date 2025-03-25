@@ -8,13 +8,11 @@ class CapstoneStairs extends StatefulWidget {
   State<CapstoneStairs> createState() => _CapstoneStairsState();
 }
 
-class _CapstoneStairsState extends State<CapstoneStairs> with SingleTickerProviderStateMixin {
+class _CapstoneStairsState extends State<CapstoneStairs> {
   // LSU colors
   static const Color lsuPurple = Color(0xFF461D7C); // LSU Purple
   static const Color lsuGold = Color(0xFFFDD023);   // LSU Gold
-  
-  late AnimationController _animationController;
-  
+
   final List<String> scrambledWords = [
     "BOGTBLEANS",
   ];
@@ -35,19 +33,13 @@ class _CapstoneStairsState extends State<CapstoneStairs> with SingleTickerProvid
       _isCorrect.add(false);
       _isChecked.add(false);
     }
-    
-    _animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 3),
-    )..repeat(reverse: true);
   }
-  
+
   @override
   void dispose() {
     for (var controller in _controllers) {
       controller.dispose();
     }
-    _animationController.dispose();
     super.dispose();
   }
 
@@ -129,23 +121,8 @@ class _CapstoneStairsState extends State<CapstoneStairs> with SingleTickerProvid
         ),
         centerTitle: true,
       ),
-      body: AnimatedBuilder(
-        animation: _animationController,
-        builder: (context, child) {
-          return Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Color.lerp(lsuGold, lsuPurple, _animationController.value) ?? lsuGold,
-                  Color.lerp(lsuPurple, lsuGold, _animationController.value) ?? lsuPurple,
-                ],
-              ),
-            ),
-            child: child,
-          );
-        },
+      body: Container(
+        color: lsuPurple, // Static background color
         child: Center(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
