@@ -190,7 +190,7 @@ class _PaneraQuizState extends State<PaneraQuiz>
           // Background image
           Opacity(
             opacity:
-                0.4, // Add opacity (0.0 = fully transparent, 1.0 = fully opaque)
+                0.3, // Add opacity (0.0 = fully transparent, 1.0 = fully opaque)
             child: Container(
               decoration: const BoxDecoration(
                 image: DecorationImage(
