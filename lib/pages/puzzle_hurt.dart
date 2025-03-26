@@ -77,7 +77,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
         ),
       ),
       backgroundColor: Colors.white,
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
@@ -91,29 +91,21 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 20),
-            Expanded(
-              child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                  childAspectRatio: 0.8,
-                ),
-                itemCount: 3,
-                itemBuilder: (context, index) {
-                  return Column(
+            Column(
+              children: List.generate(3, (index) {
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 20.0),
+                  child: Column(
                     children: [
-                      Expanded(
-                        child: Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: Colors.grey[300],
-                            borderRadius: BorderRadius.circular(12),
-                            image: DecorationImage(
-                              image:
-                                  AssetImage('assets/puzzle_${index + 1}.png'),
-                              fit: BoxFit.cover,
-                            ),
+                      Container(
+                        width: double.infinity,
+                        height: 200,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[300],
+                          borderRadius: BorderRadius.circular(12),
+                          image: DecorationImage(
+                            image: AssetImage('assets/puzzle_${index + 1}.png'),
+                            fit: BoxFit.cover,
                           ),
                         ),
                       ),
@@ -155,9 +147,9 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                             fontSize: 14, fontStyle: FontStyle.italic),
                       ),
                     ],
-                  );
-                },
-              ),
+                  ),
+                );
+              }),
             ),
           ],
         ),
