@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
 
 void main() {
   runApp(MyApp());
@@ -25,6 +26,11 @@ class PuzzleScreen extends StatefulWidget {
 class _PuzzleScreenState extends State<PuzzleScreen> {
   static const Color lsuPurple = Color(0xFF461D7C);
   static const Color lsuGold = Color(0xFFFDD023);
+  static const List<String> correctAnswers = [
+    "Tiger Stadium",
+    "Memorial Tower",
+    "Quad"
+  ];
 
   final List<TextEditingController> _controllers =
       List.generate(3, (index) => TextEditingController());
@@ -34,10 +40,27 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
     "Hint 3: Focus on the structure"
   ];
   final List<String> _currentHints = ["", "", ""];
+  final List<Color> _inputColors = List.generate(3, (index) => Colors.white);
 
   void _showHint(int index) {
     setState(() {
       _currentHints[index] = _hints[index];
+    });
+  }
+
+  void _checkAnswer(int index) {
+    setState(() {
+      if (_controllers[index].text.trim().toLowerCase() ==
+          correctAnswers[index].toLowerCase()) {
+        _inputColors[index] = Colors.lightGreenAccent;
+      } else {
+        _inputColors[index] = Colors.redAccent.shade100;
+        Timer(const Duration(seconds: 1), () {
+          setState(() {
+            _inputColors[index] = Colors.white;
+          });
+        });
+      }
     });
   }
 
@@ -68,52 +91,73 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: List.generate(3, (index) {
-                return Column(
-                  children: [
-                    Container(
-                      width: 100,
-                      height: 100,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[300],
-                        borderRadius: BorderRadius.circular(12),
-                        image: DecorationImage(
-                          image: AssetImage('assets/puzzle_${index + 1}.png'),
-                          fit: BoxFit.cover,
+            Expanded(
+              child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                  childAspectRatio: 0.8,
+                ),
+                itemCount: 3,
+                itemBuilder: (context, index) {
+                  return Column(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: Colors.grey[300],
+                            borderRadius: BorderRadius.circular(12),
+                            image: DecorationImage(
+                              image:
+                                  AssetImage('assets/puzzle_${index + 1}.png'),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 10),
-                    SizedBox(
-                      width: 100,
-                      child: TextField(
-                        controller: _controllers[index],
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: 'Enter Answer',
+                      const SizedBox(height: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: TextField(
+                              controller: _controllers[index],
+                              decoration: InputDecoration(
+                                filled: true,
+                                fillColor: _inputColors[index],
+                                border: OutlineInputBorder(),
+                                labelText: 'Enter Answer',
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 5),
+                          IconButton(
+                            icon: Icon(Icons.check, color: lsuPurple),
+                            onPressed: () => _checkAnswer(index),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 5),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: lsuPurple,
+                          foregroundColor: Colors.white,
                         ),
+                        onPressed: () => _showHint(index),
+                        child: const Text('Hint'),
                       ),
-                    ),
-                    const SizedBox(height: 5),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: lsuPurple,
-                        foregroundColor: Colors.white,
+                      const SizedBox(height: 5),
+                      Text(
+                        _currentHints[index],
+                        style: const TextStyle(
+                            fontSize: 14, fontStyle: FontStyle.italic),
                       ),
-                      onPressed: () => _showHint(index),
-                      child: const Text('Hint'),
-                    ),
-                    const SizedBox(height: 5),
-                    Text(
-                      _currentHints[index],
-                      style: const TextStyle(
-                          fontSize: 14, fontStyle: FontStyle.italic),
-                    ),
-                  ],
-                );
-              }),
+                    ],
+                  );
+                },
+              ),
             ),
           ],
         ),
