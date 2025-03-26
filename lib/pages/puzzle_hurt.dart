@@ -17,120 +17,103 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class PuzzleScreen extends StatelessWidget {
+class PuzzleScreen extends StatefulWidget {
+  @override
+  _PuzzleScreenState createState() => _PuzzleScreenState();
+}
+
+class _PuzzleScreenState extends State<PuzzleScreen> {
+  static const Color lsuPurple = Color(0xFF461D7C);
+  static const Color lsuGold = Color(0xFFFDD023);
+
+  final List<TextEditingController> _controllers =
+      List.generate(3, (index) => TextEditingController());
+  final List<String> _hints = [
+    "Hint 1: Look closely at the background",
+    "Hint 2: Check the left corner",
+    "Hint 3: Focus on the structure"
+  ];
+  final List<String> _currentHints = ["", "", ""];
+
+  void _showHint(int index) {
+    setState(() {
+      _currentHints[index] = _hints[index];
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Puzzle Hunt'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              'Find the Hidden Location!',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(height: 16),
-            Container(
-              width: double.infinity,
-              height: 200,
-              decoration: BoxDecoration(
-                color: Colors.grey[300],
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Center(
-                child: Text(
-                  'Image Placeholder',
-                  style: TextStyle(fontSize: 18, color: Colors.black54),
-                ),
-              ),
-            ),
-            SizedBox(height: 16),
-            Text(
-              'Solve the puzzle by figuring out where the image was taken. Once you find the location, look for a hidden label with the answer.',
-              style: TextStyle(fontSize: 16),
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => PuzzlePage()),
-                );
-              },
-              child: Text('Start the Hunt'),
-            ),
-          ],
+        centerTitle: true,
+        backgroundColor: lsuPurple,
+        title: Image.asset(
+          'assets/lsu_logo_gold.png',
+          width: 150,
+          height: 100,
         ),
       ),
-    );
-  }
-}
-
-class PuzzlePage extends StatefulWidget {
-  @override
-  _PuzzlePageState createState() => _PuzzlePageState();
-}
-
-class _PuzzlePageState extends State<PuzzlePage> {
-  final TextEditingController _controller = TextEditingController();
-  String hint = "Hint: Look closely at the image";
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Enter the Code'),
-      ),
+      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
-              width: double.infinity,
-              height: 200,
-              decoration: BoxDecoration(
-                color: Colors.grey[300],
-                borderRadius: BorderRadius.circular(12),
+            const Text(
+              'Find the Hidden Locations!',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'ProximaNova',
               ),
-              child: Center(
-                child: Text(
-                  'Image Placeholder',
-                  style: TextStyle(fontSize: 18, color: Colors.black54),
-                ),
-              ),
+              textAlign: TextAlign.center,
             ),
-            SizedBox(height: 16),
-            TextField(
-              controller: _controller,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Enter the Number',
-              ),
-            ),
-            SizedBox(height: 16),
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  hint = "New Hint: The number is near the bottom left";
-                });
-              },
-              child: Text('Display Hint'),
-            ),
-            Text(hint, style: TextStyle(fontSize: 16)),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                // Logic to check the number and navigate to the next puzzle page can be added here
-              },
-              child: Text('Submit'),
+            const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: List.generate(3, (index) {
+                return Column(
+                  children: [
+                    Container(
+                      width: 100,
+                      height: 100,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[300],
+                        borderRadius: BorderRadius.circular(12),
+                        image: DecorationImage(
+                          image: AssetImage('assets/puzzle_${index + 1}.png'),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    SizedBox(
+                      width: 100,
+                      child: TextField(
+                        controller: _controllers[index],
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Enter Answer',
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: lsuPurple,
+                        foregroundColor: Colors.white,
+                      ),
+                      onPressed: () => _showHint(index),
+                      child: const Text('Hint'),
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      _currentHints[index],
+                      style: const TextStyle(
+                          fontSize: 14, fontStyle: FontStyle.italic),
+                    ),
+                  ],
+                );
+              }),
             ),
           ],
         ),
