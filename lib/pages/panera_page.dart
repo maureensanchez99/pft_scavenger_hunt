@@ -75,7 +75,7 @@ class RadioSelectionBox extends StatelessWidget {
                     ? null
                     : 0,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     if (showCheckButton) ...[
                       Padding(
@@ -206,6 +206,30 @@ class _PaneraQuizState extends State<PaneraQuiz>
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              AnimatedOpacity(
+                duration: const Duration(milliseconds: 300),
+                opacity: _showCompletionMessage ? 1.0 : 0.0,
+                child: _showCompletionMessage
+                    ? Container(
+                        margin: const EdgeInsets.all(16.0),
+                        padding: const EdgeInsets.all(24.0),
+                        constraints: const BoxConstraints(maxWidth: 500),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        child: const Text(
+                          'Congratulations! All answers are correct!',
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'ProximaNova',
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      )
+                    : const SizedBox.shrink(),
+              ),
               if (!_showCompletionMessage) ...[
                 Center(
                   child: getRadioSelectionBox(),
@@ -213,7 +237,7 @@ class _PaneraQuizState extends State<PaneraQuiz>
                 Padding(
                   padding: const EdgeInsets.fromLTRB(16, 16, 16, 16.0),
                   child: Container(
-                    padding: const EdgeInsets.all(18.0),
+                    padding: const EdgeInsets.all(12.0),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(8.0),
@@ -272,26 +296,6 @@ class _PaneraQuizState extends State<PaneraQuiz>
                         });
                       },
                     ),
-                  ),
-                ),
-              ] else ...[
-                // Completion message container
-                Container(
-                  margin: const EdgeInsets.all(16.0),
-                  padding: const EdgeInsets.all(24.0),
-                  constraints: const BoxConstraints(maxWidth: 500),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  child: const Text(
-                    'Congratulations! All answers are correct!',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'ProximaNova',
-                    ),
-                    textAlign: TextAlign.center,
                   ),
                 ),
               ],
