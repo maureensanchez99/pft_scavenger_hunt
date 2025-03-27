@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'capstone_stairs.dart';
+import 'puzzle_hurt.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
@@ -8,15 +9,16 @@ class WelcomeScreen extends StatefulWidget {
   State<WelcomeScreen> createState() => _WelcomeScreenState();
 }
 
-class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProviderStateMixin {
+class _WelcomeScreenState extends State<WelcomeScreen>
+    with SingleTickerProviderStateMixin {
   // LSU colors
   static const Color lsuPurple = Color(0xFF461D7C); // LSU Purple
-  static const Color lsuGold = Color(0xFFFDD023);   // LSU Gold
-  
+  static const Color lsuGold = Color(0xFFFDD023); // LSU Gold
+
   late AnimationController _animationController;
   bool _isZooming = false;
   double _zoomScale = 1.0;
-  
+
   @override
   void initState() {
     super.initState();
@@ -25,7 +27,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
       duration: const Duration(seconds: 3),
     )..repeat(reverse: true);
   }
-  
+
   @override
   void dispose() {
     _animationController.dispose();
@@ -37,19 +39,21 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
     setState(() {
       _isZooming = true;
     });
-    
+
     // Animate the zoom effect
     Future.delayed(const Duration(milliseconds: 100), () {
       setState(() {
         _zoomScale = 8.0; // zzzoooooom speeeedd
       });
     });
-    
+
     // Navigate after zoom animation completes
     Future.delayed(const Duration(milliseconds: 800), () {
-      Navigator.of(context).push(
+      Navigator.of(context)
+          .push(
         PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) => const CapstoneStairs(),
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              PuzzleScreen(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return FadeTransition(
               opacity: animation,
@@ -58,7 +62,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
           },
           transitionDuration: const Duration(milliseconds: 300),
         ),
-      ).then((_) {
+      )
+          .then((_) {
         // Reset the welcome screen when returning
         setState(() {
           _isZooming = false;
@@ -80,8 +85,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  Color.lerp(lsuGold, lsuPurple, _animationController.value) ?? lsuGold,
-                  Color.lerp(lsuPurple, lsuGold, _animationController.value) ?? lsuPurple,
+                  Color.lerp(lsuGold, lsuPurple, _animationController.value) ??
+                      lsuGold,
+                  Color.lerp(lsuPurple, lsuGold, _animationController.value) ??
+                      lsuPurple,
                 ],
               ),
             ),
@@ -96,8 +103,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
               AnimatedContainer(
                 duration: const Duration(milliseconds: 700),
                 curve: Curves.easeInOut,
-                transform: Matrix4.identity()
-                  ..scale(_zoomScale),
+                transform: Matrix4.identity()..scale(_zoomScale),
                 transformAlignment: Alignment.center,
                 child: Image.asset(
                   'assets/lsu_logo.png',
@@ -106,7 +112,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
                 ),
               ),
               if (!_isZooming) ...[
-                const Text( 
+                const Text(
                   'Welcome to the PFT Scavenger Hunt',
                   style: TextStyle(
                     fontSize: 24,
