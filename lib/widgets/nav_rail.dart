@@ -11,7 +11,7 @@ import '../pages/duck_page.dart';
 import '../pages/jp_fav_spot.dart';
 import '../pages/panera_page.dart';
 import '../pages/pft_page.dart';
-import '../pages/robot_thirdfloor.dart';
+import '../pages/robotics_room.dart';
 
 class ScavengerHuntNavRail extends StatelessWidget {
   final int selectedIndex;
@@ -77,7 +77,7 @@ class ScavengerHuntNavRail extends StatelessWidget {
             destinationPage = const PftPage();
             break;
           case 12:
-            destinationPage = const RobotThirdFloor();
+            destinationPage = const RoboticsRoom();
             break;
           default:
             destinationPage = const WelcomeScreen();
