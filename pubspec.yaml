@@ -1,4 +1,4 @@
-name: app6
+name: pft_scavenger_hunt
 description: "A new Flutter project."
 
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
@@ -27,5 +27,27 @@ flutter:
 
   assets:
     # Don't need to list each assets image as long is it's in the folder below
-    - assets/
-    - assets/puzzle/
+
+    - assets/ 
+
+  fonts: 
+    - family: ProximaNova
+      fonts:
+        - asset: assets/fonts/proximanova_black.otf  
+          weight: 700
+        - asset: assets/fonts/proximanova_black.ttf  
+          weight: 700  
+        - asset: assets/fonts/proximanova_blackit.otf  
+          weight: 700  
+        - asset: assets/fonts/proximanova_bold.otf  
+          weight: 700  
+        - asset: assets/fonts/proximanova_boldit.otf  
+          weight: 700  
+        - asset: assets/fonts/proximanova_extrabold.otf  
+          weight: 700  
+        - asset: assets/fonts/proximanova_light.otf  
+          weight: 700  
+        - asset: assets/fonts/proximanova_regular.ttf  
+          weight: 700  
+        - asset: assets/fonts/ProximaNova-Regular.otf  
+          weight: 700  
