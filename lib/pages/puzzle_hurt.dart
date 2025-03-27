@@ -25,19 +25,14 @@ class PuzzleScreen extends StatefulWidget {
 
 class _PuzzleScreenState extends State<PuzzleScreen> {
   static const Color lsuPurple = Color(0xFF461D7C);
-  static const Color lsuGold = Color(0xFFFDD023);
-  static const List<String> correctAnswers = [
-    "Tiger Stadium",
-    "Memorial Tower",
-    "Quad"
-  ];
+  static const List<String> correctAnswers = ["Ts8", "92p", "fT4"];
 
   final List<TextEditingController> _controllers =
       List.generate(3, (index) => TextEditingController());
   final List<String> _hints = [
-    "Hint 1: Look closely at the background",
-    "Hint 2: Check the left corner",
-    "Hint 3: Focus on the structure"
+    "Hint 1: Check outside the ME office. Check around the tables. Sit down, maybe you'll see it.",
+    "Hint 2: Go where CSC students beg for help. Look outside, maybe the sun will heal you. Don't forget to check the windows.",
+    "Hint 3: Located around the 3300 offices. Look at the office plaques, they'll might be there. :>"
   ];
   final List<String> _currentHints = ["", "", ""];
   final List<Color> _inputColors = List.generate(3, (index) => Colors.white);
@@ -62,6 +57,35 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
         });
       }
     });
+  }
+
+  void _openImageFullScreen(BuildContext context, String imagePath) {
+    showDialog(
+      context: context,
+      builder: (context) => Dialog(
+        backgroundColor: Colors.black,
+        insetPadding: EdgeInsets.zero,
+        child: Stack(
+          children: [
+            InteractiveViewer(
+              panEnabled: true,
+              boundaryMargin: EdgeInsets.all(0),
+              minScale: 1.0,
+              maxScale: 3.0,
+              child: Image.asset(imagePath, fit: BoxFit.contain),
+            ),
+            Positioned(
+              top: 40,
+              right: 20,
+              child: IconButton(
+                icon: Icon(Icons.close, color: Colors.white, size: 30),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   @override
@@ -97,16 +121,39 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                   padding: const EdgeInsets.only(bottom: 20.0),
                   child: Column(
                     children: [
-                      Container(
-                        width: double.infinity,
-                        height: 200,
-                        decoration: BoxDecoration(
-                          color: Colors.grey[300],
-                          borderRadius: BorderRadius.circular(12),
-                          image: DecorationImage(
-                            image: AssetImage('assets/puzzle_${index + 1}.png'),
-                            fit: BoxFit.cover,
-                          ),
+                      GestureDetector(
+                        onTap: () => _openImageFullScreen(
+                            context, 'assets/puzzle_${index + 1}.jpg'),
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Container(
+                              width: double.infinity,
+                              height: 200,
+                              decoration: BoxDecoration(
+                                color: Colors.grey[300],
+                                borderRadius: BorderRadius.circular(12),
+                                image: DecorationImage(
+                                  image: AssetImage(
+                                      'assets/puzzle_${index + 1}.jpg'),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 4, horizontal: 8),
+                              color: Colors.black54,
+                              child: Text(
+                                'Click to Zoom',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       const SizedBox(height: 10),
