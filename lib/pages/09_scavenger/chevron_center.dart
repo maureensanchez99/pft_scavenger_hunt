@@ -136,16 +136,7 @@ class _ChevronCenterState extends State<ChevronCenter> {
         children: [
           // Main content
           Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Color(0xFFFDD023), // lsuGold
-                  Color(0xFF461D7C), // lsuPurple
-                ],
-              ),
-            ),
+            color: Colors.white,
             child: Column(
               children: [
                 // Hamburger menu at the top left
@@ -176,7 +167,7 @@ class _ChevronCenterState extends State<ChevronCenter> {
                           style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                            color: Color(0xFF461D7C),
                           ),
                           textAlign: TextAlign.center,
                         ),
@@ -260,7 +251,7 @@ class _ChevronCenterState extends State<ChevronCenter> {
                                   child: Text(
                                     _hint,
                                     style: const TextStyle(
-                                      color: Colors.white,
+                                      color: Color(0xFF461D7C),
                                       fontSize: 16,
                                       fontStyle: FontStyle.italic,
                                     ),
