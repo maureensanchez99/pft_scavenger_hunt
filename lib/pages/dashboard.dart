@@ -54,84 +54,6 @@ class _HomePageState extends State<HomePage> {
   
   // State for nav rail
   bool _isNavRailExtended = false;
-  
-  void _navigateToChallenge(BuildContext context, int index) {
-    if (!ChallengeProgress.isUnlocked(index)) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: const Text(
-            'Complete the previous challenge first!',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          backgroundColor: Colors.red,
-          duration: const Duration(seconds: 2),
-          behavior: SnackBarBehavior.floating,
-          margin: const EdgeInsets.all(16),
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(8)),
-          ),
-        ),
-      );
-      return;
-    }
-
-    // Navigate to the appropriate challenge
-    Widget destination;
-    switch (index) {
-      case 0:
-        destination = const RiddlePassage();
-        break;
-      case 1:
-        destination = PuzzleScreen();
-        break;
-      case 2:
-        destination = const SodukuPuzzle();
-        break;
-      case 3:
-        destination = const BinaryClue();
-        break;
-      case 4:
-        destination = const DuckPage();
-        break;
-      case 5:
-        destination = const CapstoneStairs();
-        break;
-      case 6:
-        destination = const BengalbotsLab();
-        break;
-      case 7:
-        destination = const PaneraPage();
-        break;
-      case 8:
-        destination = const ChevronCenter();
-        break;
-      case 9:
-        destination = const RobotThirdFloor();
-        break;
-      case 10:
-        destination = const PftPage();
-        break;
-      case 11:
-        destination = const JpFavSpot();
-        break;
-      default:
-        return;
-    }
-
-    Navigator.of(context).push(
-      PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) => destination,
-        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          return FadeTransition(opacity: animation, child: child);
-        },
-        transitionDuration: const Duration(milliseconds: 300),
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -139,18 +61,6 @@ class _HomePageState extends State<HomePage> {
     final double progressPercentage = _challengesCompleted.where((completed) => completed).length / _challengesCompleted.length;
     
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: lsuPurple,
-        title: const Text(
-          'Dashboard',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.w600,
-            color: Color(0xFFFDD023),
-          ),
-        ),
-        centerTitle: true,
-      ),
       body: Stack(
         children: [
           // Main content
@@ -158,20 +68,49 @@ class _HomePageState extends State<HomePage> {
             color: lsuPurple,
             child: Column(
               children: [
-                // Hamburger menu at the top left
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 16.0, top: 16.0),
-                    child: IconButton(
-                      icon: const Icon(Icons.menu, color: Colors.white),
-                      onPressed: () {
-                        setState(() {
-                          _isNavRailExtended = !_isNavRailExtended;
-                        });
-                      },
+                // Hamburger menu and arrow
+                Stack(
+                  children: [
+                    // Hamburger menu at the top left
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 16.0, top: 40.0),
+                        child: IconButton(
+                          icon: const Icon(Icons.menu, color: Colors.white),
+                          onPressed: () {
+                            setState(() {
+                              _isNavRailExtended = !_isNavRailExtended;
+                            });
+                          },
+                        ),
+                      ),
                     ),
-                  ),
+                    // Arrow and text
+                    Positioned(
+                      left: 60,
+                      top: 48,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(
+                            Icons.arrow_back,
+                            color: Colors.white,
+                            size: 24,
+                          ),
+                          const SizedBox(width: 16),
+                          Text(
+                            'Click here to access the challenges',
+                            style: TextStyle(
+                              color: lsuGold,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
                 
                 // Main content
