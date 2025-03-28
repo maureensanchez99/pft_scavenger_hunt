@@ -27,7 +27,9 @@ flutter:
 
   assets:
     # Don't need to list each assets image as long is it's in the folder below
+
     - assets/ 
+    - assets/chevron_center.jpg
 
   fonts: 
     - family: ProximaNova
