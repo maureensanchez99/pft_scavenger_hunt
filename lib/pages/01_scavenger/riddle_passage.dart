@@ -15,7 +15,9 @@ class _RiddlePassageState extends State<RiddlePassage> {
   
   // State for nav rail
   bool _isNavRailExtended = false;
-  
+  final answer = TextEditingController();
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,25 +67,53 @@ class _RiddlePassageState extends State<RiddlePassage> {
                 
                 // Main content
                 Expanded(
+                  child: SingleChildScrollView(
                   child: Center(
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text(
-                            'Riddle Passage Content',
-                            style: TextStyle(
+                          Text(
+                            "As we begin the hunt, you need to find where Jp went",
+                            textAlign: TextAlign.center,
+                            style: TextStyle
+                            (
                               fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
+                              fontWeight: FontWeight.bold, 
+                              
+                              color: Colors.white
                             ),
                           ),
-                          // Add your content here
+                          Image.asset("assets/Jpnote.PNG"),
+                          TextField
+                          (
+                            controller: answer,
+                            decoration: InputDecoration
+                            (
+                              border: OutlineInputBorder
+                                (
+                                  borderRadius: BorderRadius.circular(10)
+                                ),
+                              fillColor: Colors.white,
+                              hintText: "What is the room Jp is always in?",
+                              hintStyle: TextStyle
+                                (
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold
+                                ),
+                              
+                            ),
+                            
+
+                          )
+
                         ],
                       ),
                     ),
                   ),
+                ),
                 ),
               ],
             ),
