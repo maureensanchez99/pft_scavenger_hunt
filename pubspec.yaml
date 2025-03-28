@@ -27,28 +27,23 @@ flutter:
 
   assets:
     # Don't need to list each assets image as long is it's in the folder below
-
     - assets/ 
-    - assets/chevron_center.jpg
 
   fonts: 
     - family: ProximaNova
       fonts:
         - asset: assets/fonts/proximanova_black.otf  
-          weight: 700
         - asset: assets/fonts/proximanova_black.ttf  
-          weight: 700  
         - asset: assets/fonts/proximanova_blackit.otf  
-          weight: 700  
+          style: italic  
         - asset: assets/fonts/proximanova_bold.otf  
           weight: 700  
         - asset: assets/fonts/proximanova_boldit.otf  
+          style: italic
           weight: 700  
         - asset: assets/fonts/proximanova_extrabold.otf  
-          weight: 700  
+          weight: 800  
         - asset: assets/fonts/proximanova_light.otf  
-          weight: 700  
+          weight: 100  
         - asset: assets/fonts/proximanova_regular.ttf  
-          weight: 700  
         - asset: assets/fonts/ProximaNova-Regular.otf  
-          weight: 700  
