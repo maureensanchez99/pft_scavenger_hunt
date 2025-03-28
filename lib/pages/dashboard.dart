@@ -1,6 +1,25 @@
 import 'package:flutter/material.dart';
 import '../widgets/nav_rail.dart';
 
+// Static class to manage challenge completion status
+class ChallengeProgress {
+  static final List<bool> _challengesCompleted = List.generate(12, (index) => false);
+  
+  static bool isCompleted(int index) {
+    return _challengesCompleted[index];
+  }
+  
+  static void markCompleted(int index) {
+    if (index >= 0 && index < _challengesCompleted.length) {
+      _challengesCompleted[index] = true;
+    }
+  }
+  
+  static List<bool> getAllStatus() {
+    return List.from(_challengesCompleted);
+  }
+}
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -13,8 +32,8 @@ class _HomePageState extends State<HomePage> {
   static const Color lsuPurple = Color(0xFF461D7C); // LSU Purple
   static const Color lsuGold = Color(0xFFFDD023);   // LSU Gold
   
-  // Mock data for progress tracking - would be replaced with actual logic later
-  final List<bool> _challengesCompleted = List.generate(12, (index) => index < 3);
+  // Get completion status from shared state
+  List<bool> get _challengesCompleted => ChallengeProgress.getAllStatus();
   
   // State for nav rail
   bool _isNavRailExtended = false;
