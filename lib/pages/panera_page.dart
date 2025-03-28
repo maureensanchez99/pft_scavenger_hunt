@@ -267,25 +267,25 @@ class _PaneraQuizState extends State<PaneraQuiz>
                         ButtonSegment<int>(
                             value: 0,
                             label: Text(
-                              'Choice 1',
+                              'Q1',
                               style: TextStyle(fontFamily: 'ProximaNova'),
                             )),
                         ButtonSegment<int>(
                             value: 1,
                             label: Text(
-                              'Choice 2',
+                              'Q2',
                               style: TextStyle(fontFamily: 'ProximaNova'),
                             )),
                         ButtonSegment<int>(
                             value: 2,
                             label: Text(
-                              'Choice 3',
+                              'Q3',
                               style: TextStyle(fontFamily: 'ProximaNova'),
                             )),
                         ButtonSegment<int>(
                             value: 3,
                             label: Text(
-                              'Choice 4',
+                              'Q4',
                               style: TextStyle(fontFamily: 'ProximaNova'),
                             )),
                       ],
