@@ -123,12 +123,25 @@ class _ChevronCenterState extends State<ChevronCenter> {
       appBar: AppBar(
         backgroundColor: lsuGold,
         foregroundColor: lsuPurple,
-        title: const Text(
-          'Chevron Center',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.w600,
-          ),
+        toolbarHeight: 120, // Increased height to accommodate logo and title
+        flexibleSpace: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/lsu_logo.png',
+              width: 150,
+              height: 50,
+            ),
+            const SizedBox(height: 16), // Space equal to the S height
+            const Text(
+              'Chevron Center',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.w600,
+                color: Color(0xFF461D7C),
+              ),
+            ),
+          ],
         ),
         centerTitle: true,
       ),
