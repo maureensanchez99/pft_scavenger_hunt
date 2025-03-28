@@ -12,10 +12,8 @@ class _CapstoneStairsState extends State<CapstoneStairs> {
   // LSU colors
   static const Color lsuPurple = Color(0xFF461D7C); // LSU Purple
   static const Color lsuGold = Color(0xFFFDD023);   // LSU Gold
-
-  final List<String> scrambledWords = [
-    "BOGTBLEANS",
-  ];
+  static const Color lsuLightGold = Color(0xFFF1EEDB);  // LSU Light Gold
+  static const Color lsuCorpPurple = Color(0xFF3C1053); // LSU Corporate Purple
 
   final List<String> correctWords = [
     "BENGALBOTS",
@@ -119,9 +117,9 @@ class _CapstoneStairsState extends State<CapstoneStairs> {
                 const Text(
                   'Anagram Challenge',
                   style: TextStyle(
-                    fontSize: 24,
+                    fontSize: 30,
                     fontWeight: FontWeight.w700,
-                    color: Color.fromRGBO(253, 208, 35, 1),
+                    color: lsuGold,
                   ),
                 ),
                 SizedBox(height: 25.0,),
@@ -148,7 +146,7 @@ class _CapstoneStairsState extends State<CapstoneStairs> {
                   child: Container(
                     constraints: const BoxConstraints(maxWidth: 500),
                     child: ListView.builder(
-                      itemCount: scrambledWords.length,
+                      itemCount: correctWords.length,
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 8.0),
@@ -196,7 +194,6 @@ class _CapstoneStairsState extends State<CapstoneStairs> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: _checkAnswer,
                   style: ElevatedButton.styleFrom(
@@ -213,15 +210,6 @@ class _CapstoneStairsState extends State<CapstoneStairs> {
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
-                  ),
-                ),
-                const SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: () async {
-
-                  },
-                  child: const Text(
-                    'BengalbotsLab',
                   ),
                 ),
               ],
