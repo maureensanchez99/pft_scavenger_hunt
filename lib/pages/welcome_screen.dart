@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'capstone_stairs.dart';
-import 'puzzle_hurt.dart';
+import '01_scavenger/riddle_passage.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
@@ -53,7 +52,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
           .push(
         PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
-              PuzzleScreen(),
+              const RiddlePassage(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return FadeTransition(
               opacity: animation,
