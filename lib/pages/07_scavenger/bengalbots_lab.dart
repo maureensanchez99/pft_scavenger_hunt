@@ -19,18 +19,6 @@ class _BengalbotsLabState extends State<BengalbotsLab> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: lsuGold,
-        foregroundColor: lsuPurple,
-        title: const Text(
-          'Bengalbots Lab',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        centerTitle: true,
-      ),
       body: Stack(
         children: [
           // Main content
