@@ -225,16 +225,6 @@ class _PaneraPageState extends State<PaneraPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: lsuPurple.withOpacity(0.95),
-        foregroundColor: lsuGold,
-        title: Image.asset(
-          'assets/lsu_logo_gold.png',
-          width: 150,
-          height: 100,
-        ),
-        centerTitle: true,
-      ),
       backgroundColor: Colors.white,
       body: Stack(
         children: [
@@ -257,6 +247,18 @@ class _PaneraPageState extends State<PaneraPage>
 
           Column(
             children: [
+              Container(
+                color: lsuPurple,
+                padding: const EdgeInsets.all(16.0),
+                child: Center(
+                  child: Image.asset(
+                    'assets/lsu_logo_gold.png',
+                    width: 150,
+                    height: 75,
+                  ),
+                ),
+              ),
+
               // Hamburger menu at the top left
               Align(
                 alignment: Alignment.topLeft,

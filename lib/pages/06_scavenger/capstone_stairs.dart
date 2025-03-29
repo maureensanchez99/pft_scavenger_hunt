@@ -104,34 +104,35 @@ class _CapstoneStairsState extends State<CapstoneStairs> {
                     const Text(
                       'Anagram Challenge',
                       style: TextStyle(
-                        fontSize: 30, 
+                        fontSize: 35, 
                         fontWeight: FontWeight.w800, 
-                        color: lsuCorpPurple
+                        color: lsuCorpPurple, 
                       ),
                     ),
-                    const SizedBox(height: 25.0),
+                    const SizedBox(height: 30.0),
                     const Text(
-                      'Wooden rails and hidden signs\n'
-                      'A scrambled word between the lines\n'
+                      'Wooden rails and hidden signs, '
+                      'a scrambled word between the lines\n'
                       'Look to the side, don’t miss your cue\n',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontStyle: FontStyle.italic,
                         fontWeight: FontWeight.w600,
-                        fontSize: 20,
-                        color: lsuCorpPurple
+                        fontSize: 25,
+                        color: lsuCorpPurple, 
                       ),
                     ),
                     const SizedBox(height: 20.0),
                     const Text(
-                      'Unscramble the letters to reveal the clue:', 
+                      'Unscramble the found letters to reveal the clue:', 
+                      textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: 15, 
+                        fontSize: 20, 
                         color: lsuCorpPurple, 
                         fontWeight: FontWeight.bold
                       )
                     ),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 20.0),
                     Expanded(
                       child: Container(
                         constraints: const BoxConstraints(maxWidth: 500),
@@ -179,7 +180,7 @@ class _CapstoneStairsState extends State<CapstoneStairs> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 5),
+                    const SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: _checkAnswer,
                       style: ElevatedButton.styleFrom(
@@ -189,7 +190,7 @@ class _CapstoneStairsState extends State<CapstoneStairs> {
                       child: const Text(
                         'Check Answer', 
                         style: TextStyle(
-                          fontSize: 18, 
+                          fontSize: 20, 
                           fontWeight: FontWeight.bold
                         )
                       ),
@@ -205,7 +206,7 @@ class _CapstoneStairsState extends State<CapstoneStairs> {
               top: 0,
               bottom: 0,
               child: ScavengerHuntNavRail(
-                selectedIndex: 7, 
+                selectedIndex: 5, 
                 isExtended: true,
                 onExtendedChange: (value) {
                   setState(() {
