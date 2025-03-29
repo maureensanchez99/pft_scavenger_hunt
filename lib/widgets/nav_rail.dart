@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
-import '../pages/welcome_screen.dart';
-import '../pages/capstone_stairs.dart';
-import '../pages/bengalbots_lab.dart';
-import '../pages/binary_clue.dart';
-import '../pages/riddle_passage.dart';
-import '../pages/soduku_puzzle.dart';
-import '../pages/third_floor.dart';
-import '../pages/chevron_center.dart';
-import '../pages/duck_page.dart';
-import '../pages/jp_fav_spot.dart';
-import '../pages/panera_page.dart';
-import '../pages/pft_page.dart';
-import '../pages/robotics_room.dart';
+import '../pages/06_scavenger/capstone_stairs.dart';
+import '../pages/07_scavenger/bengalbots_lab.dart';
+import '../pages/04_scavenger/binary_clue.dart';
+import '../pages/01_scavenger/riddle_passage.dart';
+import '../pages/03_scavenger/soduku_puzzle.dart';
+import '../pages/09_scavenger/chevron_center.dart';
+import '../pages/05_scavenger/duck_page.dart';
+import '../pages/12_scavenger/jp_fav_spot.dart';
+import '../pages/08_scavenger/panera_page.dart';
+import '../pages/11_scavenger/pft_page.dart';
+import '../pages/10_scavenger/robotics_room.dart';
+import '../pages/02_scavenger/puzzle_hurt.dart';
+import '../pages/dashboard.dart';
 
-class ScavengerHuntNavRail extends StatelessWidget {
+class ScavengerHuntNavRail extends StatefulWidget {
   final int selectedIndex;
+  final bool isExtended;
+  final Function(bool)? onExtendedChange;
   
   // LSU colors
   static const Color lsuPurple = Color(0xFF461D7C);
@@ -23,134 +25,126 @@ class ScavengerHuntNavRail extends StatelessWidget {
   const ScavengerHuntNavRail({
     super.key,
     required this.selectedIndex,
+    this.isExtended = false,
+    this.onExtendedChange,
   });
 
   @override
+  State<ScavengerHuntNavRail> createState() => _ScavengerHuntNavRailState();
+}
+
+class _ScavengerHuntNavRailState extends State<ScavengerHuntNavRail> {
+  @override
   Widget build(BuildContext context) {
-    return NavigationRail(
-      selectedIndex: selectedIndex,
-      backgroundColor: lsuPurple.withOpacity(0.9),
-      unselectedIconTheme: const IconThemeData(color: Colors.white70),
-      unselectedLabelTextStyle: const TextStyle(color: Colors.white70),
-      selectedIconTheme: IconThemeData(color: lsuGold),
-      selectedLabelTextStyle: TextStyle(color: lsuGold, fontWeight: FontWeight.bold),
-      onDestinationSelected: (int index) {
-        if (index == selectedIndex) return;
-        
-        // Navigate to the selected page
-        Widget destinationPage;
-        switch (index) {
-          case 0:
-            destinationPage = const WelcomeScreen();
-            break;
-          case 1:
-            destinationPage = const CapstoneStairs();
-            break;
-          case 2:
-            destinationPage = const BengalbotsLab();
-            break;
-          case 3:
-            destinationPage = const BinaryClue();
-            break;
-          case 4:
-            destinationPage = const RiddlePassage();
-            break;
-          case 5:
-            destinationPage = const SodukuPuzzle();
-            break;
-          case 6:
-            destinationPage = const ThirdFloor();
-            break;
-          case 7:
-            destinationPage = const ChevronCenter();
-            break;
-          case 8:
-            destinationPage = const DuckPage();
-            break;
-          case 9:
-            destinationPage = const JpFavSpot();
-            break;
-          case 10:
-            destinationPage = const PaneraPage();
-            break;
-          case 11:
-            destinationPage = const PftPage();
-            break;
-          case 12:
-            destinationPage = const RoboticsRoom();
-            break;
-          default:
-            destinationPage = const WelcomeScreen();
-        }
+    // We don't need the effectiveIndex variable anymore with the new design
+    
+    return Container(
+      width: 200,
+      decoration: BoxDecoration(
+        color: ScavengerHuntNavRail.lsuPurple.withOpacity(0.95),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.3),
+            spreadRadius: 1,
+            blurRadius: 5,
+            offset: const Offset(0, 3),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          // Header with close button
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.close, color: Colors.white),
+                  onPressed: () {
+                    if (widget.onExtendedChange != null) {
+                      widget.onExtendedChange!(false);
+                    }
+                  },
+                ),
+              ],
+            ),
+          ),
+          const Divider(color: Colors.white24, height: 1),
+          
+          // Dashboard option
+          ListTile(
+            leading: const Icon(Icons.dashboard, color: Colors.white),
+            title: const Text('Dashboard', style: TextStyle(color: Colors.white)),
+            onTap: () {
+              Navigator.of(context).pushReplacement(
+                PageRouteBuilder(
+                  pageBuilder: (context, animation, secondaryAnimation) => const HomePage(),
+                  transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                    return FadeTransition(opacity: animation, child: child);
+                  },
+                  transitionDuration: const Duration(milliseconds: 300),
+                ),
+              );
+            },
+          ),
+          
+          const Divider(color: Colors.white24, height: 1),
+          
+          // Scrollable list of destinations
+          Expanded(
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: [
+                _buildDestinationTile(0, 'Riddle Passage', Icons.question_mark, const RiddlePassage()),
+                _buildDestinationTile(1, 'Puzzle Hunt', Icons.search, PuzzleScreen()),
+                _buildDestinationTile(2, 'Sudoku Puzzle', Icons.grid_3x3, const SodukuPuzzle()),
+                _buildDestinationTile(3, 'Binary Clue', Icons.code, const BinaryClue()),
+                _buildDestinationTile(4, 'The Duck', Icons.pets, const DuckPage()),
+                _buildDestinationTile(5, 'Capstone Stairs', Icons.stairs, const CapstoneStairs()),
+                _buildDestinationTile(6, 'Bengal Bots', Icons.science, const BengalbotsLab()),
+                _buildDestinationTile(7, 'Panera', Icons.restaurant, const PaneraPage()),
+                _buildDestinationTile(8, 'Chevron Center', Icons.business, const ChevronCenter()),
+                _buildDestinationTile(9, 'Robot on 3rd Floor', Icons.smart_toy, const RobotThirdFloor()),
+                _buildDestinationTile(10, 'PFT', Icons.school, const PftPage()),
+                _buildDestinationTile(11, 'JP\'s Favorite Spot', Icons.favorite, const JpFavSpot()),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+  
+  Widget _buildDestinationTile(int index, String label, IconData icon, Widget destination) {
+    final bool isSelected = widget.selectedIndex == index;
+    
+    return ListTile(
+      leading: Icon(
+        icon, 
+        color: isSelected ? ScavengerHuntNavRail.lsuGold : Colors.white70,
+      ),
+      title: Text(
+        label,
+        style: TextStyle(
+          color: isSelected ? ScavengerHuntNavRail.lsuGold : Colors.white70,
+          fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+        ),
+      ),
+      tileColor: isSelected ? Colors.white.withOpacity(0.1) : null,
+      onTap: () {
+        if (index == widget.selectedIndex) return;
         
         Navigator.of(context).pushReplacement(
           PageRouteBuilder(
-            pageBuilder: (context, animation, secondaryAnimation) => destinationPage,
+            pageBuilder: (context, animation, secondaryAnimation) => destination,
             transitionsBuilder: (context, animation, secondaryAnimation, child) {
-              return FadeTransition(
-                opacity: animation,
-                child: child,
-              );
+              return FadeTransition(opacity: animation, child: child);
             },
             transitionDuration: const Duration(milliseconds: 300),
           ),
         );
       },
-      labelType: NavigationRailLabelType.selected,
-      destinations: const [
-        NavigationRailDestination(
-          icon: Icon(Icons.home),
-          label: Text('Welcome'),
-        ),
-        NavigationRailDestination(
-          icon: Icon(Icons.stairs),
-          label: Text('Capstone'),
-        ),
-        NavigationRailDestination(
-          icon: Icon(Icons.science),
-          label: Text('Bengalbots'),
-        ),
-        NavigationRailDestination(
-          icon: Icon(Icons.code),
-          label: Text('Binary'),
-        ),
-        NavigationRailDestination(
-          icon: Icon(Icons.question_mark),
-          label: Text('Riddle'),
-        ),
-        NavigationRailDestination(
-          icon: Icon(Icons.grid_3x3),
-          label: Text('Sudoku'),
-        ),
-        NavigationRailDestination(
-          icon: Icon(Icons.apartment),
-          label: Text('3rd Floor'),
-        ),
-        NavigationRailDestination(
-          icon: Icon(Icons.business),
-          label: Text('Chevron'),
-        ),
-        NavigationRailDestination(
-          icon: Icon(Icons.pets),
-          label: Text('Duck'),
-        ),
-        NavigationRailDestination(
-          icon: Icon(Icons.favorite),
-          label: Text('JP Spot'),
-        ),
-        NavigationRailDestination(
-          icon: Icon(Icons.restaurant),
-          label: Text('Panera'),
-        ),
-        NavigationRailDestination(
-          icon: Icon(Icons.school),
-          label: Text('PFT'),
-        ),
-        NavigationRailDestination(
-          icon: Icon(Icons.smart_toy),
-          label: Text('Robot'),
-        ),
-      ],
     );
   }
 }
