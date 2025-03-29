@@ -19,7 +19,6 @@ class MyApp extends StatelessWidget {
         fontFamily: 'ProximaNova',
       ),
       home: const WelcomeScreen(),
-
     );
   }
 }

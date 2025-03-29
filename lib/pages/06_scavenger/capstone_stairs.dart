@@ -81,7 +81,7 @@ class _CapstoneStairsState extends State<CapstoneStairs> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
-        children: [
+        children: <Widget>[
           // Main content
           Container(
             color: lsuLightGold,
@@ -111,20 +111,26 @@ class _CapstoneStairsState extends State<CapstoneStairs> {
                     ),
                     const SizedBox(height: 25.0),
                     const Text(
-                      'Wooden rails and hidden signs\nA scrambled word between the lines\nLook to the side, don’t miss your cue\n',
+                      'Wooden rails and hidden signs\n'
+                      'A scrambled word between the lines\n'
+                      'Look to the side, don’t miss your cue\n',
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontStyle: FontStyle.italic, fontWeight: FontWeight.w600, fontSize: 20, color: lsuCorpPurple),
+                      style: TextStyle(
+                        fontStyle: FontStyle.italic,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 20,
+                        color: lsuCorpPurple),
                     ),
-                    const SizedBox(height: 25.0),
+                    const SizedBox(height: 20.0),
                     const Text(
-                      'Unscramble the word to reveal the clue:', 
+                      'Unscramble the letters to reveal the clue:', 
                       style: TextStyle(
                         fontSize: 15, 
                         color: lsuCorpPurple, 
                         fontWeight: FontWeight.bold
                       )
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 10),
                     Expanded(
                       child: Container(
                         constraints: const BoxConstraints(maxWidth: 500),
@@ -132,7 +138,7 @@ class _CapstoneStairsState extends State<CapstoneStairs> {
                           itemCount: correctWords.length,
                           itemBuilder: (context, index) {
                             return Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 8.0),
+                              padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
@@ -146,8 +152,10 @@ class _CapstoneStairsState extends State<CapstoneStairs> {
                                         decoration: InputDecoration(
                                           hintText: 'Enter word',
                                           border: const OutlineInputBorder(),
-                                          enabledBorder: const OutlineInputBorder(borderSide: BorderSide(color: lsuCorpPurple)),
-                                          focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: lsuGold, width: 2.0)),
+                                          enabledBorder: const OutlineInputBorder(
+                                            borderSide: BorderSide(color: lsuCorpPurple)),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(color: lsuGold, width: 2.0)),
                                           errorStyle: const TextStyle(color: Colors.red),
                                         ),
                                         style: const TextStyle(color: Colors.black),
@@ -166,10 +174,11 @@ class _CapstoneStairsState extends State<CapstoneStairs> {
                         ),
                       ),
                     ),
+                    const SizedBox(height: 5),
                     ElevatedButton(
                       onPressed: _checkAnswer,
                       style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15), 
+                        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 12), 
                         backgroundColor: lsuGold, 
                         foregroundColor: lsuPurple),
                       child: const Text(
@@ -191,7 +200,7 @@ class _CapstoneStairsState extends State<CapstoneStairs> {
               top: 0,
               bottom: 0,
               child: ScavengerHuntNavRail(
-                selectedIndex: 7,
+                selectedIndex: 7, 
                 isExtended: true,
                 onExtendedChange: (value) {
                   setState(() {
