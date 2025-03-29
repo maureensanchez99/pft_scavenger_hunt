@@ -152,6 +152,10 @@ class _CapstoneStairsState extends State<CapstoneStairs> {
                                         textAlign: TextAlign.center,
                                         decoration: InputDecoration(
                                           hintText: 'Enter word',
+                                          hintStyle: TextStyle(
+                                            color: lsuCorpPurple,
+                                            fontStyle: FontStyle.italic,
+                                          ),
                                           border: const OutlineInputBorder(),
                                           enabledBorder: const OutlineInputBorder(
                                             borderSide: BorderSide(color: lsuCorpPurple)),
@@ -159,7 +163,7 @@ class _CapstoneStairsState extends State<CapstoneStairs> {
                                             borderSide: BorderSide(color: lsuGold, width: 2.0)),
                                           errorStyle: const TextStyle(color: Colors.red),
                                         ),
-                                        style: const TextStyle(color: Colors.black),
+                                        style: const TextStyle(color: lsuCorpPurple),
                                       ),
                                     ),
                                   ),

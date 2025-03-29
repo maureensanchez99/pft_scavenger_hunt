@@ -10,8 +10,8 @@ class BengalbotsLab extends StatefulWidget {
 
 class _BengalbotsLabState extends State<BengalbotsLab> {
   // LSU colors
-  static const Color lsuPurple = Color(0xFF461D7C); // LSU Purple
-  static const Color lsuGold = Color(0xFFFDD023);   // LSU Gold
+  static const Color lsuPurple = Color(0xFF461D7C);
+  static const Color lsuGold = Color(0xFFFDD023);
   static const Color lsuCorpPurple = Color(0xFF3C1053);
 
   final List<String> answerValue = ["132"];
@@ -49,6 +49,9 @@ class _BengalbotsLabState extends State<BengalbotsLab> {
         if (!_isCorrect[i]) allCorrect = false;
       });
     }
+    if (!allCorrect) {
+      _showTryAgainDialog();
+    }
   }
 
   void _showTryAgainDialog() {
@@ -78,7 +81,7 @@ class _BengalbotsLabState extends State<BengalbotsLab> {
                 Align(
                   alignment: Alignment.topLeft,
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 16.0, top: 16.0),
+                    padding: const EdgeInsets.only(left: 16.0),
                     child: IconButton(
                       icon: const Icon(Icons.menu, color: lsuCorpPurple),
                       onPressed: () {
@@ -95,8 +98,17 @@ class _BengalbotsLabState extends State<BengalbotsLab> {
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
                         children: [
+                          const Text(
+                            'Hidden Value Challenge',
+                            style: TextStyle(
+                              fontSize: 30, 
+                              fontWeight: FontWeight.w800, 
+                              color: lsuGold,
+                            ),
+                          ),
+                          SizedBox(height:20.0),
                           const Text(
                             'Find the clue that is hidden in sight.\n'
                             'A vessel floats, but here’s the key—\n'
@@ -109,47 +121,69 @@ class _BengalbotsLabState extends State<BengalbotsLab> {
                               color: lsuGold,
                             ),
                           ),
-                          const SizedBox(height: 20.0,),
-                          Expanded(
-                            child: Container(
-                              constraints: const BoxConstraints(maxWidth: 500),
-                              child: ListView.builder(
-                                itemCount: answerValue.length,
-                                itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
-                                    child: Row(
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: [
-                                        const SizedBox(width: 10),
-                                        Expanded(
-                                          child: SizedBox(
-                                            height: 45,
-                                            child: TextField(
-                                              controller: _controllers[index],
-                                              textAlign: TextAlign.center,
-                                              decoration: InputDecoration(
-                                                hintText: 'Enter value',
-                                                border: const OutlineInputBorder(),
-                                                enabledBorder: const OutlineInputBorder(
-                                                  borderSide: BorderSide(color: lsuCorpPurple)),
-                                                focusedBorder: OutlineInputBorder(
-                                                  borderSide: BorderSide(color: lsuGold, width: 2.0)),
-                                                errorStyle: const TextStyle(color: Colors.red),
+                          const SizedBox(height: 20.0),
+                          Container(
+                            constraints: const BoxConstraints(maxWidth: 500),
+                            child: ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: answerValue.length,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
+                                  child: Row(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      const SizedBox(width: 10),
+                                      Expanded(
+                                        child: SizedBox(
+                                          height: 45,
+                                          child: TextField(
+                                            controller: _controllers[index],
+                                            textAlign: TextAlign.center,
+                                            decoration: InputDecoration(
+                                              hintText: 'Enter value',
+                                              hintStyle: TextStyle(
+                                                color: Colors.white,
+                                                fontStyle: FontStyle.italic,
                                               ),
-                                              style: const TextStyle(color: Colors.black),
+                                              border: const OutlineInputBorder(),
+                                              enabledBorder: const OutlineInputBorder(
+                                                borderSide: BorderSide(color: Colors.white)),
+                                              focusedBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(color: lsuGold, width: 2.0)),
+                                              errorStyle: const TextStyle(color: Colors.red),
                                             ),
+                                            style: const TextStyle(color: Colors.white),
                                           ),
                                         ),
-                                        if (_isChecked[index])
-                                          Padding(
-                                            padding: const EdgeInsets.only(left: 10),
-                                            child: _isCorrect[index] ? const Icon(Icons.check_circle, color: Colors.green, size: 28) : const Icon(Icons.cancel, color: Colors.red, size: 28),
-                                          ),
-                                      ],
-                                    ),
-                                  );
-                                },
+                                      ),
+                                      if (_isChecked[index])
+                                        Padding(
+                                          padding: const EdgeInsets.only(left: 10),
+                                          child: _isCorrect[index] ? const Icon(
+                                            Icons.check_circle, 
+                                            color: Colors.green, 
+                                            size: 28) : const Icon(Icons.cancel, color: Colors.red, size: 28),
+                                        ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          ElevatedButton(
+                            onPressed: _checkAnswer,
+                            style: ElevatedButton.styleFrom(
+                              padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 12),
+                              backgroundColor: lsuGold,
+                              foregroundColor: lsuPurple,
+                            ),
+                            child: const Text(
+                              'Check Answer',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
@@ -158,21 +192,6 @@ class _BengalbotsLabState extends State<BengalbotsLab> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 5),
-                  ElevatedButton(
-                    onPressed: _checkAnswer,
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 12), 
-                      backgroundColor: lsuGold, 
-                      foregroundColor: lsuPurple),
-                    child: const Text(
-                      'Check Answer', 
-                      style: TextStyle(
-                        fontSize: 18, 
-                        fontWeight: FontWeight.bold
-                      )
-                    ),
-                  ),
               ],
             ),
           ),
