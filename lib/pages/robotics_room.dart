@@ -13,6 +13,16 @@ class _RoboticsRoomState extends State<RoboticsRoom> {
   static const Color lsuPurple = Color(0xFF461D7C); // LSU Purple
   static const Color lsuGold = Color(0xFFFDD023);   // LSU Gold
 
+  final TextEditingController _controller = TextEditingController();
+  String _feedback = '';
+  final String _correctAnswer = 'universal'; // Expected correct answer
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,19 +47,72 @@ class _RoboticsRoomState extends State<RoboticsRoom> {
               child: Center(
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Text(
-                        'Robotics Room Content',
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Image(
+                          image: AssetImage('assets/images/roboticshint.jpg'), // Replace with your actual image path
+                          height: 200,
                         ),
-                      ),
-                      // Add your content here
-                    ],
+                        const SizedBox(height: 24),
+                        const Text(
+                          'In this room lies a robot out of this world,\n'
+                          'you could almost say it\'s _____',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white,
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                          child: TextField(
+                            controller: _controller,
+                            style: const TextStyle(color: Colors.white),
+                            decoration: InputDecoration(
+                              hintText: 'Enter your answer',
+                              hintStyle: const TextStyle(color: Colors.white54),
+                              filled: true,
+                              fillColor: Colors.white10,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                borderSide: BorderSide.none,
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        TextButton(
+                          onPressed: () {
+                            setState(() {
+                              if (_controller.text.trim().toLowerCase() == _correctAnswer) {
+                                _feedback = '✅ Correct!';
+                              } else {
+                                _feedback = '❌ Try again!';
+                              }
+                            });
+                          },
+                          style: TextButton.styleFrom(
+                            foregroundColor: lsuPurple,
+                            backgroundColor: lsuGold,
+                            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                          ),
+                          child: const Text('Check Answer'),
+                        ),
+                        const SizedBox(height: 12),
+                        Text(
+                          _feedback,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
