@@ -119,7 +119,8 @@ class _CapstoneStairsState extends State<CapstoneStairs> {
                         fontStyle: FontStyle.italic,
                         fontWeight: FontWeight.w600,
                         fontSize: 20,
-                        color: lsuCorpPurple),
+                        color: lsuCorpPurple
+                      ),
                     ),
                     const SizedBox(height: 20.0),
                     const Text(
