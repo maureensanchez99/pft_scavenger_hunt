@@ -77,6 +77,17 @@ class _BengalbotsLabState extends State<BengalbotsLab> {
             color: lsuPurple,
             child: Column(
               children: [
+                Container(
+                  color: lsuGold,
+                  padding: const EdgeInsets.all(10.0),
+                  child: Center(
+                    child: Image.asset(
+                      'assets/lsu_logo.png',
+                      width: 150,
+                      height: 75,
+                    ),
+                  ),
+                ),
                 // Hamburger menu at the top left
                 Align(
                   alignment: Alignment.topLeft,
@@ -102,21 +113,22 @@ class _BengalbotsLabState extends State<BengalbotsLab> {
                         children: [
                           const Text(
                             'Hidden Value Challenge',
+                            textAlign: TextAlign.center,
                             style: TextStyle(
-                              fontSize: 30, 
+                              fontSize: 35, 
                               fontWeight: FontWeight.w800, 
                               color: lsuGold,
                             ),
                           ),
                           SizedBox(height:20.0),
                           const Text(
-                            'Find the clue that is hidden in sight.\n'
+                            'Find the clue that is hidden in sight. '
                             'A vessel floats, but here’s the key—\n'
-                            'It comes with a measure, marked in g.\n'
+                            'It comes with a measure, marked in g. '
                             'Seek the ship, don’t drift away!',
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              fontSize: 20,
+                              fontSize: 25,
                               fontWeight: FontWeight.bold,
                               color: lsuGold,
                             ),
@@ -182,7 +194,7 @@ class _BengalbotsLabState extends State<BengalbotsLab> {
                             child: const Text(
                               'Check Answer',
                               style: TextStyle(
-                                fontSize: 18,
+                                fontSize: 20,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
