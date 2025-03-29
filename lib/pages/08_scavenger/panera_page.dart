@@ -165,16 +165,59 @@ class _PaneraPageState extends State<PaneraPage>
 
   // Method to check all answers
   void checkAnswers() {
-    bool allCorrect = _radioSelection1 == 2 && // First box correct answer
-        _radioSelection2 == 0 && // Second box correct answer
-        _radioSelection3 == 3 && // Third box correct answer
-        _radioSelection4 == 1; // Fourth box correct answer
+    List<int> incorrectQuestions = [];
+
+    if (_radioSelection1 != 3) incorrectQuestions.add(1);
+    if (_radioSelection2 != 1) incorrectQuestions.add(2);
+    if (_radioSelection3 != 0) incorrectQuestions.add(3);
+    if (_radioSelection4 != 2) incorrectQuestions.add(4);
 
     setState(() {
-      if (allCorrect) {
+      if (incorrectQuestions.isEmpty) {
         _showCompletionMessage = true;
       } else {
         _hasIncorrectAnswers = true;
+        // Show alert dialog with incorrect questions
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              backgroundColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              titleTextStyle: const TextStyle(
+                fontSize: 20,
+                color: lsuPurple,
+                fontFamily: 'ProximaNova',
+                fontWeight: FontWeight.bold,
+              ),
+              contentTextStyle: const TextStyle(
+                fontSize: 16,
+                color: lsuPurple,
+                fontFamily: 'ProximaNova',
+              ),
+              title: const Text('Incorrect Answers'),
+              content: Text(
+                'The following questions are incorrect:\n' +
+                    incorrectQuestions.map((q) => '- Question $q').join('\n'),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: const Text(
+                    'OK',
+                    style: TextStyle(
+                      color: lsuPurple,
+                      fontFamily: 'ProximaNova',
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
+        );
       }
     });
   }
@@ -411,10 +454,15 @@ class _PaneraPageState extends State<PaneraPage>
     switch (_segmentSelection.first) {
       case 0:
         return RadioSelectionBox(
-          title: 'Question 1:',
-          options: const ['First A', 'First B', 'First C', 'First D'],
+          title: 'Does Panera Have Charged Lemonades?',
+          options: const [
+            'Yes, only in the Spring',
+            'Yes, only in the Fall',
+            'Yes',
+            'No'
+          ],
           radioSelection: _radioSelection1,
-          correctAnswer: 2,
+          correctAnswer: 3,
           onRadioChanged: (value) {
             setState(() {
               _radioSelection1 = value!;
@@ -429,10 +477,15 @@ class _PaneraPageState extends State<PaneraPage>
         );
       case 1:
         return RadioSelectionBox(
-          title: 'Question 2:',
-          options: const ['Second A', 'Second B', 'Second C', 'Second D'],
+          title: 'What payment methods are accepted at our Panera?',
+          options: const [
+            'Credit Only',
+            'Credit and Pawpoints',
+            'Pawpoints and Cash',
+            'Cash Only'
+          ],
           radioSelection: _radioSelection2,
-          correctAnswer: 0,
+          correctAnswer: 1,
           onRadioChanged: (value) {
             setState(() {
               _radioSelection2 = value!;
@@ -447,10 +500,15 @@ class _PaneraPageState extends State<PaneraPage>
         );
       case 2:
         return RadioSelectionBox(
-          title: 'Question 3:',
-          options: const ['Third A', 'Third B', 'Third C', 'Third D'],
+          title: 'Where in the store can you check the progress of your order?',
+          options: const [
+            'The screen in the Pickup Area',
+            'Ask the cashier',
+            'The ordering screens',
+            'Ask the chef'
+          ],
           radioSelection: _radioSelection3,
-          correctAnswer: 3,
+          correctAnswer: 0,
           onRadioChanged: (value) {
             setState(() {
               _radioSelection3 = value!;
@@ -465,10 +523,10 @@ class _PaneraPageState extends State<PaneraPage>
         );
       case 3:
         return RadioSelectionBox(
-          title: 'Question 4:',
-          options: const ['Fourth A', 'Fourth B', 'Fourth C', 'Fourth D'],
+          title: 'Which food item is not on the Panera menu?',
+          options: const ['Pastries', 'Bagels', 'Ice Cream', 'Soup'],
           radioSelection: _radioSelection4,
-          correctAnswer: 1,
+          correctAnswer: 2,
           onRadioChanged: (value) {
             setState(() {
               _radioSelection4 = value!;
