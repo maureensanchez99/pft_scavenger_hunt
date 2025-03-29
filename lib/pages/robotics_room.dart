@@ -52,12 +52,12 @@ class _RoboticsRoomState extends State<RoboticsRoom> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Image(
-                          image: AssetImage('assets/images/roboticshint.jpg'), // Replace with your actual image path
+                          image: AssetImage('assets/roboticshint.jpg'),
                           height: 200,
                         ),
                         const SizedBox(height: 24),
                         const Text(
-                          'In this room lies a robot out of this world,\n'
+                          'In this room lies a giant robot out of this world,\n'
                           'you could almost say it\'s _____',
                           textAlign: TextAlign.center,
                           style: TextStyle(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'pages/robotics_room.dart';
+import 'pages/welcome_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFF461D7C)),
         useMaterial3: true,
       ),
-      home: const RoboticsRoom(),
+      home: const WelcomeScreen(),
     );
   }
 }
