@@ -105,7 +105,7 @@ class _ScavengerHuntNavRailState extends State<ScavengerHuntNavRail> {
                 _buildDestinationTile(6, 'Bengal Bots', Icons.science, const BengalbotsLab()),
                 _buildDestinationTile(7, 'Panera', Icons.restaurant, const PaneraPage()),
                 _buildDestinationTile(8, 'Chevron Center', Icons.business, const ChevronCenter()),
-                _buildDestinationTile(9, 'Robot on 3rd Floor', Icons.smart_toy, const RobotThirdFloor()),
+                _buildDestinationTile(9, 'Robotics Room', Icons.smart_toy, const RoboticsRoom()),
                 _buildDestinationTile(10, 'PFT', Icons.school, const PftPage()),
                 _buildDestinationTile(11, 'JP\'s Favorite Spot', Icons.favorite, const JpFavSpot()),
               ],
