@@ -8,24 +8,15 @@ class CapstoneStairs extends StatefulWidget {
   State<CapstoneStairs> createState() => _CapstoneStairsState();
 }
 
-class _CapstoneStairsState extends State<CapstoneStairs> with SingleTickerProviderStateMixin {
+class _CapstoneStairsState extends State<CapstoneStairs> {
   // LSU colors
-  static const Color lsuPurple = Color(0xFF461D7C); // LSU Purple
-  static const Color lsuGold = Color(0xFFFDD023);   // LSU Gold
-  
-  late AnimationController _animationController;
-  
-  // State for nav rail
+  static const Color lsuPurple = Color(0xFF461D7C);
+  static const Color lsuGold = Color(0xFFFDD023);
+  static const Color lsuLightGold = Color(0xFFF1EEDB);
+  static const Color lsuCorpPurple = Color(0xFF3C1053);
+
   bool _isNavRailExtended = false;
-  
-  final List<String> correctWords = [
-    "BENGALBOTS",
-  ];
-
-  final List<String> scrambledWords = [
-    "GALBENTBOS",
-  ];
-
+  final List<String> correctWords = ["BENGALBOTS"];
   final List<TextEditingController> _controllers = [];
   final List<bool> _isCorrect = [];
   final List<bool> _isChecked = [];
@@ -33,46 +24,31 @@ class _CapstoneStairsState extends State<CapstoneStairs> with SingleTickerProvid
   @override
   void initState() {
     super.initState();
-    for (int i = 0; i < scrambledWords.length; i++) {
+    for (int i = 0; i < correctWords.length; i++) {
       _controllers.add(TextEditingController());
       _isCorrect.add(false);
       _isChecked.add(false);
     }
-    
-    _animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 3),
-    )..repeat(reverse: true);
   }
-  
+
   @override
   void dispose() {
     for (var controller in _controllers) {
       controller.dispose();
     }
-    _animationController.dispose();
     super.dispose();
   }
 
   void _checkAnswer() {
     bool allCorrect = true;
-    for (int i = 0; i < scrambledWords.length; i++) {
+    for (int i = 0; i < correctWords.length; i++) {
       setState(() {
         _isChecked[i] = true;
-        if (_controllers[i].text.toUpperCase() == correctWords[i]) {
-          _isCorrect[i] = true;
-        } else {
-          _isCorrect[i] = false;
-          allCorrect = false;
-        }
+        _isCorrect[i] = _controllers[i].text.toUpperCase() == correctWords[i];
+        if (!_isCorrect[i]) allCorrect = false;
       });
     }
-
-    if (allCorrect) {
-      _showClueDialog();
-    } else {
-      _showTryAgainDialog();
-    }
+    allCorrect ? _showClueDialog() : _showTryAgainDialog();
   }
 
   void _showClueDialog() {
@@ -81,17 +57,8 @@ class _CapstoneStairsState extends State<CapstoneStairs> with SingleTickerProvid
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Clue Revealed!'),
-          content: const Text(
-            'Where in PFT can you see this clue? Head to this place next.',
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('OK'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
+          content: const Text('Where in PFT can you see this clue? Head to this place next.'),
+          actions: [TextButton(child: const Text('OK'), onPressed: () => Navigator.of(context).pop())],
         );
       },
     );
@@ -104,14 +71,7 @@ class _CapstoneStairsState extends State<CapstoneStairs> with SingleTickerProvid
         return AlertDialog(
           title: const Text('Try Again!'),
           content: const Text('The word is incorrect.'),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('OK'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
+          actions: [TextButton(child: const Text('OK'), onPressed: () => Navigator.of(context).pop())],
         );
       },
     );
@@ -120,151 +80,132 @@ class _CapstoneStairsState extends State<CapstoneStairs> with SingleTickerProvid
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: lsuGold,
-        foregroundColor: lsuPurple,
-        title: const Text(
-          'Anagram Challenge',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        centerTitle: true,
-      ),
       body: Stack(
-        children: [
+        children: <Widget>[
           // Main content
-          AnimatedBuilder(
-            animation: _animationController,
-            builder: (context, child) {
-              return Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Color.lerp(lsuGold, lsuPurple, _animationController.value) ?? lsuGold,
-                      Color.lerp(lsuPurple, lsuGold, _animationController.value) ?? lsuPurple,
-                    ],
-                  ),
-                ),
+          Container(
+            color: lsuLightGold,
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
                 child: Column(
                   children: [
-                    // Hamburger menu at the top left
                     Align(
                       alignment: Alignment.topLeft,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 16.0, top: 16.0),
-                        child: IconButton(
-                          icon: const Icon(Icons.menu, color: lsuPurple),
-                          onPressed: () {
-                            setState(() {
-                              _isNavRailExtended = !_isNavRailExtended;
-                            });
+                      child: IconButton(
+                        icon: const Icon(Icons.menu, color: lsuPurple),
+                        onPressed: () {
+                          setState(() {
+                            _isNavRailExtended = !_isNavRailExtended;
+                          });
+                        },
+                      ),
+                    ),
+                    const Text(
+                      'Anagram Challenge',
+                      style: TextStyle(
+                        fontSize: 30, 
+                        fontWeight: FontWeight.w800, 
+                        color: lsuCorpPurple
+                      ),
+                    ),
+                    const SizedBox(height: 25.0),
+                    const Text(
+                      'Wooden rails and hidden signs\n'
+                      'A scrambled word between the lines\n'
+                      'Look to the side, don’t miss your cue\n',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontStyle: FontStyle.italic,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 20,
+                        color: lsuCorpPurple
+                      ),
+                    ),
+                    const SizedBox(height: 20.0),
+                    const Text(
+                      'Unscramble the letters to reveal the clue:', 
+                      style: TextStyle(
+                        fontSize: 15, 
+                        color: lsuCorpPurple, 
+                        fontWeight: FontWeight.bold
+                      )
+                    ),
+                    const SizedBox(height: 10),
+                    Expanded(
+                      child: Container(
+                        constraints: const BoxConstraints(maxWidth: 500),
+                        child: ListView.builder(
+                          itemCount: correctWords.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  const SizedBox(width: 10),
+                                  Expanded(
+                                    child: SizedBox(
+                                      height: 45,
+                                      child: TextField(
+                                        controller: _controllers[index],
+                                        textAlign: TextAlign.center,
+                                        decoration: InputDecoration(
+                                          hintText: 'Enter word',
+                                          hintStyle: TextStyle(
+                                            color: lsuCorpPurple,
+                                            fontStyle: FontStyle.italic,
+                                          ),
+                                          border: const OutlineInputBorder(),
+                                          enabledBorder: const OutlineInputBorder(
+                                            borderSide: BorderSide(color: lsuCorpPurple)),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(color: lsuGold, width: 2.0)),
+                                          errorStyle: const TextStyle(color: Colors.red),
+                                        ),
+                                        style: const TextStyle(color: lsuCorpPurple),
+                                      ),
+                                    ),
+                                  ),
+                                  if (_isChecked[index])
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 10),
+                                      child: _isCorrect[index] ? const Icon(Icons.check_circle, color: Colors.green, size: 28) : const Icon(Icons.cancel, color: Colors.red, size: 28),
+                                    ),
+                                ],
+                              ),
+                            );
                           },
                         ),
                       ),
                     ),
-                    
-                    // Main content
-                    Expanded(
-                      child: Center(
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Column(
-                            children: <Widget>[
-                              const Text(
-                                'Unscramble the word to reveal the clue:',
-                                style: TextStyle(fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold),
-                              ),
-                              const SizedBox(height: 20),
-                              Expanded(
-                                child: Container(
-                                  constraints: const BoxConstraints(maxWidth: 500),
-                                  child: ListView.builder(
-                                    itemCount: scrambledWords.length,
-                                    itemBuilder: (context, index) {
-                                      return Padding(
-                                        padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 8.0),
-                                        child: Row(
-                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                          children: <Widget>[
-                                            const SizedBox(width: 10),
-                                            Expanded(
-                                              child: SizedBox(
-                                                height: 45,
-                                                child: TextField(
-                                                  controller: _controllers[index],
-                                                  textAlign: TextAlign.center,
-                                                  decoration: InputDecoration(
-                                                    contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
-                                                    hintText: 'Enter word',
-                                                    hintStyle: const TextStyle(color: Colors.white54),
-                                                    border: const OutlineInputBorder(),
-                                                    enabledBorder: const OutlineInputBorder(
-                                                      borderSide: BorderSide(color: Colors.white70),
-                                                    ),
-                                                    focusedBorder: OutlineInputBorder(
-                                                      borderSide: BorderSide(color: lsuGold, width: 2.0),
-                                                    ),
-                                                    errorStyle: const TextStyle(color: Colors.red),
-                                                  ),
-                                                  style: const TextStyle(color: Colors.white),
-                                                ),
-                                              ),
-                                            ),
-                                            if (_isChecked[index])
-                                              Padding(
-                                                padding: const EdgeInsets.only(left: 10),
-                                                child: _isCorrect[index]
-                                                    ? const Icon(Icons.check_circle, color: Colors.green, size: 28)
-                                                    : const Icon(Icons.cancel, color: Colors.red, size: 28),
-                                              ),
-                                          ],
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 20),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  ElevatedButton(
-                                    onPressed: _checkAnswer,
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: lsuGold,
-                                      foregroundColor: lsuPurple,
-                                      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                                    ),
-                                    child: const Text(
-                                      'Check Answer',
-                                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
+                    const SizedBox(height: 5),
+                    ElevatedButton(
+                      onPressed: _checkAnswer,
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 12), 
+                        backgroundColor: lsuGold, 
+                        foregroundColor: lsuPurple),
+                      child: const Text(
+                        'Check Answer', 
+                        style: TextStyle(
+                          fontSize: 18, 
+                          fontWeight: FontWeight.bold
+                        )
                       ),
                     ),
                   ],
                 ),
-              );
-            },
+              ),
+            ),
           ),
-          
-          // Slide-in navigation rail when extended
           if (_isNavRailExtended)
             Positioned(
               left: 0,
               top: 0,
               bottom: 0,
               child: ScavengerHuntNavRail(
-                selectedIndex: 5, // Capstone Stairs is index 5
+                selectedIndex: 7, 
                 isExtended: true,
                 onExtendedChange: (value) {
                   setState(() {
