@@ -16,74 +16,45 @@ class _JpFavSpotState extends State<JpFavSpot> {
   
   // State for nav rail
   bool _isNavRailExtended = false;
+  bool finalQuestionReady = false;
   
-  void _checkAnswer(String answer) {
-    if (answer.toLowerCase() == 'correct_answer') {
-      // Mark JP's Favorite Spot as completed (index 11)
-      ChallengeProgress.markCompleted(11);
-      _showSuccessDialog();
-    } else {
-      _showTryAgainDialog();
-    }
+
+  void showFinalQuestion()
+  {
+    setState(() 
+    {
+      finalQuestionReady = true;  
+    });
   }
 
-  void _showSuccessDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Success!'),
-          content: const Text('You found JP\'s favorite spot!'),
-          actions: [TextButton(child: const Text('OK'), onPressed: () => Navigator.of(context).pop())],
-        );
-      },
-    );
-  }
 
-  void _showTryAgainDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Try Again'),
-          content: const Text('That\'s not quite right. Keep looking!'),
-          actions: [TextButton(child: const Text('OK'), onPressed: () => Navigator.of(context).pop())],
-        );
-      },
-    );
-  }
+
+
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: lsuGold,
-        foregroundColor: lsuPurple,
-        title: const Text(
-          'JP\'s Favorite Spot',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        centerTitle: true,
-      ),
       body: Stack(
         children: [
           // Main content
           Container(
             decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Color(0xFFFDD023), // lsuGold
-                  Color(0xFF461D7C), // lsuPurple
-                ],
-              ),
+              color: Color(0xFFA39AAC)
             ),
             child: Column(
               children: [
+                Container(
+                  color: lsuPurple,
+                  padding: const EdgeInsets.all(16.0),
+                  child: Center(
+                    child: Image.asset(
+                      'assets/lsu_logo_gold.png',
+                      width: 150,
+                      height: 75,
+                    ),
+                  ),
+                ),
                 // Hamburger menu at the top left
                 Align(
                   alignment: Alignment.topLeft,
@@ -107,16 +78,56 @@ class _JpFavSpotState extends State<JpFavSpot> {
                       padding: const EdgeInsets.all(16.0),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text(
-                            'JP\'s Favorite Spot Content',
-                            style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                          // Add your content here
+                        children: 
+                        [
+                          if(!finalQuestionReady)
+                          Column
+                          (
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: 
+                            [
+                              Text
+                              (
+                                textAlign: TextAlign.center,
+                                "Huh, you made it to the end?\nAre you ready for the final question then? ",
+                                style: TextStyle
+                                (
+                                  color: Color(0xFF3C1053),
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold
+                                ),
+                              ),
+                              SizedBox(height: 10),
+                              ElevatedButton
+                              (
+                                onPressed: showFinalQuestion,
+                                style: ElevatedButton.styleFrom
+                                (
+                                  backgroundColor: Color(0xFF3C1053)
+                                ),
+                                child: Text
+                                (
+                                  textAlign: TextAlign.center,
+                                  "I am Ready",
+                                  style: TextStyle
+                                  (
+                                    color: lsuGold,
+                                    fontWeight: FontWeight.bold
+                                  
+                                  )
+                                )
+                              )
+                            ],
+                          )
+                          else
+                          Column
+                          (
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: 
+                            [
+                              
+                            ],
+                          )
                         ],
                       ),
                     ),

@@ -100,7 +100,7 @@ class _ScavengerHuntNavRailState extends State<ScavengerHuntNavRail> {
                 _buildDestinationTile(1, 'Puzzle Hunt', Icons.search, PuzzleScreen()),
                 _buildDestinationTile(2, 'Sudoku Puzzle', Icons.grid_3x3, const SodukuPuzzle()),
                 _buildDestinationTile(3, 'Binary Clue', Icons.code, const BinaryClue()),
-                _buildDestinationTile(4, 'The Duck', Icons.pets, const DuckPage()),
+                _buildDestinationTile(4, 'The Commons', Icons.pets, const DuckPage()),
                 _buildDestinationTile(5, 'Capstone Stairs', Icons.stairs, const CapstoneStairs()),
                 _buildDestinationTile(6, 'Bengal Bots', Icons.science, const BengalbotsLab()),
                 _buildDestinationTile(7, 'Panera', Icons.restaurant, const PaneraPage()),

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import '../../widgets/nav_rail.dart';
 import '../dashboard.dart';
-// import '../assets/fonts';
+
+
+// Foolish Code
+
 
 class RiddlePassage extends StatefulWidget {
   const RiddlePassage({super.key});
@@ -37,7 +40,7 @@ class _RiddlePassageState extends State<RiddlePassage> {
       else
       {
         questionDone = false;
-        answerMessage = "You did not get the right answer, you fucking dumbass";
+        answerMessage = "You did not get the right answer, Try Again";
       }
     });
     _showBottomCard();
@@ -185,6 +188,17 @@ class _RiddlePassageState extends State<RiddlePassage> {
             (
               children: 
               [
+                Container(
+                  color: lsuPurple,
+                  padding: const EdgeInsets.all(16.0),
+                  child: Center(
+                    child: Image.asset(
+                      'assets/lsu_logo_gold.png',
+                      width: 150,
+                      height: 75,
+                    ),
+                  ),
+                ),
                 // Hamburger menu at the top left
                 Align(
                   alignment: Alignment.topLeft,
@@ -218,25 +232,10 @@ class _RiddlePassageState extends State<RiddlePassage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children:
                           [
-                            Title
-                            (
-                              color: lsuPurple, 
-                              child: Text
-                              (
-                                "Riddle Passage",
-                                textAlign: TextAlign.center,
-                                style: TextStyle
-                                (
-                                  color: Colors.black,
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.bold
-                                ),
-                              )
-                            ),
-                            SizedBox
-                            (
-                              height: 50
-                            ),
+                            // SizedBox
+                            // (
+                            //   height: 20
+                            // ),
                             Text
                             (
                               "As we begin the hunt, you need to find where Jp went",

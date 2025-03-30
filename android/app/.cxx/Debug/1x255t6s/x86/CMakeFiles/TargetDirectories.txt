@@ -1,0 +1,2 @@
+C:/Users/maure/projects/4330/pft_scavenger_hunt/android/app/.cxx/Debug/1x255t6s/x86/CMakeFiles/edit_cache.dir
+C:/Users/maure/projects/4330/pft_scavenger_hunt/android/app/.cxx/Debug/1x255t6s/x86/CMakeFiles/rebuild_cache.dir
