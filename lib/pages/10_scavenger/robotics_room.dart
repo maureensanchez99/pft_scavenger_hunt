@@ -29,17 +29,53 @@ class _RoboticsRoomState extends State<RoboticsRoom> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: lsuGold,
-        foregroundColor: lsuPurple,
-        title: const Text(
-          'Robotics Room',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.w600,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(120), // Adjust height as needed
+        child: Container(
+          color: lsuPurple,
+          child: Column(
+            children: [
+              Container(
+                color: lsuGold,
+                padding: const EdgeInsets.all(10.0),
+                child: Center(
+                  child: Image.asset(
+                    'assets/lsu_logo.png',
+                    width: 150,
+                    height: 75,
+                  ),
+                ),
+              ),
+              Stack(
+                children: [
+                  // Ensures the hamburger menu appears at the top left
+                   Align(
+                  alignment: Alignment.topLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 16.0),
+                    child: IconButton(
+                      icon: const Icon(Icons.menu, color: lsuGold),
+                      onPressed: () {
+                        setState(() {
+                          _isNavRailExtended = !_isNavRailExtended;
+                        });
+                      },
+                    ),
+                  ),
+                ),
+
+                  // Title in the center
+                  Align(
+                    alignment: Alignment.center,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 16.0),
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
-        centerTitle: true,
       ),
       body: Row(
         children: [
@@ -68,9 +104,9 @@ class _RoboticsRoomState extends State<RoboticsRoom> {
                       children: [
                         const Image(
                           image: AssetImage('assets/roboticshint.jpg'),
-                          height: 200,
+                          height: 180,
                         ),
-                        const SizedBox(height: 24),
+                        const SizedBox(height: 20),
                         const Text(
                           'In this room lies a giant robot that is so out of this world,\n'
                           'you could almost say it\'s _____',
