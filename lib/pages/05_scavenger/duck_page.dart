@@ -142,145 +142,283 @@ class _DuckPageState extends State<DuckPage> {
                 ),
                 
                 // Main content
-                Expanded(
-                  child: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: 
-                        [
-                          Text
-                          (
-                            textAlign: TextAlign.center,
-                            "Story Time:\n A while back, someone vandalise PFT with a specific animal\n One of said animal was put in The Commons\n Go find it....",
-                            style: TextStyle
-                            ( 
-                              color: lsuPurple,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold
-                            )
-                          ),
-                          GestureDetector
-                          (
-                            child: Image.asset("assets/commons.PNG"),
-                            onTap:() 
-                            {
-                             showDialog
-                             (
-                              context: context,
-                              builder: (BuildContext context)
-                              {
-                                return Dialog
-                                (
-                                  insetPadding: EdgeInsets.zero,
-                                  child: Stack
-                                  (
-                                    children: 
-                                    [
-                                      InteractiveViewer
-                                      (
-                                        boundaryMargin: const EdgeInsets.all(0),
-                                        minScale: 1,
-                                        maxScale: 4,
-                                        panAxis: PanAxis.free,
-                                        child: Image.asset("assets/commons.PNG", fit: BoxFit.contain)
-                                      )
-                                    ],
-                                  ),
-                                );
-                              }
-                              );
-                            },
-                          ),
-                          Text
-                          (
-                            textAlign: TextAlign.center,
-                            "Click the image to zoom in",
-                            style: TextStyle
+                SingleChildScrollView
+                      (
+                        child: Column
+                        (
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: 
+                          [
+                            Text
                             (
-                              color: lsuPurple,
-                            )
-                          ),
-                         if (!questionDone)
-                              TextField
-                              (
-                                textAlign: TextAlign.center,
-                                style: TextStyle
-                                (
-                                  fontSize: 20
-                                ),
-                                controller: inputAnswer,
-                                decoration: InputDecoration
-                                (
-                                  border: OutlineInputBorder
-                                    (
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  hintText: "What is the animal?",
-                                  hintStyle: TextStyle
-                                    (
-                                      color: Color(0xFF3C1053),
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold
-                                    ),
-                                ),
-                              ),
-                            if(!questionDone)
-                              ElevatedButton
-                              (
-                                onPressed: checkAnswer, 
-                                style: ElevatedButton.styleFrom
-                                (
-                                  backgroundColor: Color(0xFF3C1053)
-                                ),
-                                child: 
-                                  Text
-                                  (
-                                    "Check",
-                                    style: TextStyle
-                                    (
-                                      fontSize: 15,
-                                      color: Color(0xFFF1EEDB)
-                                    ),
-                                  )
-                                    
-                                  
+                              textAlign: TextAlign.center,
+                              "Story Time:\n A while back, someone vandalise PFT with a specific animal\n One of said animal was put in The Commons\n Go find it....",
+                              style: TextStyle
+                              ( 
+                                color: lsuPurple,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold
                               )
-                            else
-                              SizedBox
+                            ),
+                            GestureDetector
+                            (
+                              child: Image.asset("assets/commons.PNG"),
+                              onTap:() 
+                              {
+                              showDialog
                               (
-                                height: 50,
-                                width: 100,
-                                child:
-                                (
-                                  DecoratedBox
+                                context: context,
+                                builder: (BuildContext context)
+                                {
+                                  return Dialog
                                   (
-                                    decoration: BoxDecoration
+                                    insetPadding: EdgeInsets.zero,
+                                    child: Stack
                                     (
-                                      borderRadius: BorderRadius.circular(40),
-                                      color: Colors.green,
+                                      children: 
+                                      [
+                                        InteractiveViewer
+                                        (
+                                          boundaryMargin: const EdgeInsets.all(0),
+                                          minScale: 1,
+                                          maxScale: 4,
+                                          panAxis: PanAxis.free,
+                                          child: Image.asset("assets/commons.PNG", fit: BoxFit.contain)
+                                        )
+                                      ],
                                     ),
-                                    child:
-                                    (
-                                      Icon
+                                  );
+                                }
+                                );
+                              },
+                            ),
+                            Text
+                            (
+                              textAlign: TextAlign.center,
+                              "Click the image to zoom in",
+                              style: TextStyle
+                              (
+                                color: lsuPurple,
+                              )
+                            ),
+                          if (!questionDone)
+                                TextField
+                                (
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle
+                                  (
+                                    fontSize: 20
+                                  ),
+                                  controller: inputAnswer,
+                                  decoration: InputDecoration
+                                  (
+                                    border: OutlineInputBorder
                                       (
-                                        Icons.check,
-                                        color: Colors.white
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                    filled: true,
+                                    fillColor: Colors.white,
+                                    hintText: "What is the animal?",
+                                    hintStyle: TextStyle
+                                      (
+                                        color: Color(0xFF3C1053),
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold
+                                      ),
+                                  ),
+                                ),
+                              if(!questionDone)
+                                ElevatedButton
+                                (
+                                  onPressed: checkAnswer, 
+                                  style: ElevatedButton.styleFrom
+                                  (
+                                    backgroundColor: Color(0xFF3C1053)
+                                  ),
+                                  child: 
+                                    Text
+                                    (
+                                      "Check",
+                                      style: TextStyle
+                                      (
+                                        fontSize: 15,
+                                        color: Color(0xFFF1EEDB)
+                                      ),
+                                    )
+                                      
+                                    
+                                )
+                              else
+                                SizedBox
+                                (
+                                  height: 50,
+                                  width: 100,
+                                  child:
+                                  (
+                                    DecoratedBox
+                                    (
+                                      decoration: BoxDecoration
+                                      (
+                                        borderRadius: BorderRadius.circular(40),
+                                        color: Colors.green,
+                                      ),
+                                      child:
+                                      (
+                                        Icon
+                                        (
+                                          Icons.check,
+                                          color: Colors.white
+                                        )
                                       )
                                     )
                                   )
                                 )
-                              )
-                          
-
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
+                          ],
+                        ),
+                      )
+                // Expanded
+                // (
+                //   child: Center
+                //   (
+                //     child: Padding
+                //     (
+                //       padding: const EdgeInsets.all(16.0),
+                //       child: SingleChildScrollView
+                //       (
+                //         child: Column
+                //         (
+                //           children: 
+                //           [
+                //             Text
+                //             (
+                //               textAlign: TextAlign.center,
+                //               "Story Time:\n A while back, someone vandalise PFT with a specific animal\n One of said animal was put in The Commons\n Go find it....",
+                //               style: TextStyle
+                //               ( 
+                //                 color: lsuPurple,
+                //                 fontSize: 16,
+                //                 fontWeight: FontWeight.bold
+                //               )
+                //             ),
+                //             GestureDetector
+                //             (
+                //               child: Image.asset("assets/commons.PNG"),
+                //               onTap:() 
+                //               {
+                //               showDialog
+                //               (
+                //                 context: context,
+                //                 builder: (BuildContext context)
+                //                 {
+                //                   return Dialog
+                //                   (
+                //                     insetPadding: EdgeInsets.zero,
+                //                     child: Stack
+                //                     (
+                //                       children: 
+                //                       [
+                //                         InteractiveViewer
+                //                         (
+                //                           boundaryMargin: const EdgeInsets.all(0),
+                //                           minScale: 1,
+                //                           maxScale: 4,
+                //                           panAxis: PanAxis.free,
+                //                           child: Image.asset("assets/commons.PNG", fit: BoxFit.contain)
+                //                         )
+                //                       ],
+                //                     ),
+                //                   );
+                //                 }
+                //                 );
+                //               },
+                //             ),
+                //             Text
+                //             (
+                //               textAlign: TextAlign.center,
+                //               "Click the image to zoom in",
+                //               style: TextStyle
+                //               (
+                //                 color: lsuPurple,
+                //               )
+                //             ),
+                //           if (!questionDone)
+                //                 TextField
+                //                 (
+                //                   textAlign: TextAlign.center,
+                //                   style: TextStyle
+                //                   (
+                //                     fontSize: 20
+                //                   ),
+                //                   controller: inputAnswer,
+                //                   decoration: InputDecoration
+                //                   (
+                //                     border: OutlineInputBorder
+                //                       (
+                //                         borderRadius: BorderRadius.circular(10),
+                //                       ),
+                //                     filled: true,
+                //                     fillColor: Colors.white,
+                //                     hintText: "What is the animal?",
+                //                     hintStyle: TextStyle
+                //                       (
+                //                         color: Color(0xFF3C1053),
+                //                         fontSize: 14,
+                //                         fontWeight: FontWeight.bold
+                //                       ),
+                //                   ),
+                //                 ),
+                //               if(!questionDone)
+                //                 ElevatedButton
+                //                 (
+                //                   onPressed: checkAnswer, 
+                //                   style: ElevatedButton.styleFrom
+                //                   (
+                //                     backgroundColor: Color(0xFF3C1053)
+                //                   ),
+                //                   child: 
+                //                     Text
+                //                     (
+                //                       "Check",
+                //                       style: TextStyle
+                //                       (
+                //                         fontSize: 15,
+                //                         color: Color(0xFFF1EEDB)
+                //                       ),
+                //                     )
+                                      
+                                    
+                //                 )
+                //               else
+                //                 SizedBox
+                //                 (
+                //                   height: 50,
+                //                   width: 100,
+                //                   child:
+                //                   (
+                //                     DecoratedBox
+                //                     (
+                //                       decoration: BoxDecoration
+                //                       (
+                //                         borderRadius: BorderRadius.circular(40),
+                //                         color: Colors.green,
+                //                       ),
+                //                       child:
+                //                       (
+                //                         Icon
+                //                         (
+                //                           Icons.check,
+                //                           color: Colors.white
+                //                         )
+                //                       )
+                //                     )
+                //                   )
+                //                 )
+                //           ],
+                //         ),
+                //       )
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ),

@@ -55,7 +55,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
           .push(
         PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
-              const JpFavSpot(),
+              const RiddlePassage(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return FadeTransition(
               opacity: animation,
