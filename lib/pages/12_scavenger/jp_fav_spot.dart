@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../widgets/nav_rail.dart';
 import '../../pages/13_scavenger/final.dart';
-
+import '../dashboard.dart';
 // Foolish Code
 
 class JpFavSpot extends StatefulWidget {
@@ -24,6 +24,13 @@ class _JpFavSpotState extends State<JpFavSpot>
   final inputAnswer = TextEditingController();
   String FinalAnswer = "foolishduck";
   
+  static const String correctAnswer = "JP";
+
+  @override
+  void dispose() {
+    _answerController.dispose();
+    super.dispose();
+  }
 
   void showFinalQuestion()
   {
@@ -169,7 +176,6 @@ class _JpFavSpotState extends State<JpFavSpot>
                                   (
                                     color: lsuGold,
                                     fontWeight: FontWeight.bold
-                                  
                                   )
                                 )
                               )
@@ -184,6 +190,7 @@ class _JpFavSpotState extends State<JpFavSpot>
                               Text
                               (
                                 textAlign: TextAlign.center,
+
                                 "Go to the top of the Capstone Stairs and have a seat",
                                 style: TextStyle
                                 (
@@ -264,6 +271,7 @@ class _JpFavSpotState extends State<JpFavSpot>
 
                                 ],
                               )
+
                             ],
                           )
                         ],

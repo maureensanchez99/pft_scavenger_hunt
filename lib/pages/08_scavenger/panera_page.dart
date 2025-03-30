@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../widgets/nav_rail.dart';
+import '../dashboard.dart';
 
 class RadioSelectionBox extends StatelessWidget {
   final String title;
@@ -31,8 +32,8 @@ class RadioSelectionBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(16.0),
-      padding: const EdgeInsets.all(24.0),
+      margin: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(16.0),
       constraints: const BoxConstraints(maxWidth: 500),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -50,7 +51,7 @@ class RadioSelectionBox extends StatelessWidget {
               color: lsuPurple,
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 8),
           ...options.asMap().entries.map((entry) {
             return RadioListTile(
               title: Text(
@@ -175,6 +176,8 @@ class _PaneraPageState extends State<PaneraPage>
     setState(() {
       if (incorrectQuestions.isEmpty) {
         _showCompletionMessage = true;
+        // Mark Panera Page as completed (index 7)
+        ChallengeProgress.markCompleted(7);
       } else {
         _hasIncorrectAnswers = true;
         // Show alert dialog with incorrect questions
@@ -285,10 +288,10 @@ class _PaneraPageState extends State<PaneraPage>
                       children: [
                         Container(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 28, vertical: 14),
+                              horizontal: 14, vertical: 7),
                           decoration: BoxDecoration(
                             color: Colors.white,
-                            borderRadius: BorderRadius.circular(12.0),
+                            borderRadius: BorderRadius.circular(8.0),
                           ),
                           child: const Text(
                             'Panera Quiz',
@@ -300,7 +303,7 @@ class _PaneraPageState extends State<PaneraPage>
                             ),
                           ),
                         ),
-                        const SizedBox(height: 24),
+                        const SizedBox(height: 2),
                         Stack(
                           children: [
                             // Center container with content
@@ -339,10 +342,10 @@ class _PaneraPageState extends State<PaneraPage>
                                     child: getRadioSelectionBox(),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                        16, 16, 16, 16.0),
+                                    padding:
+                                        const EdgeInsets.fromLTRB(8, 4, 8, 4),
                                     child: Container(
-                                      padding: const EdgeInsets.all(12.0),
+                                      padding: const EdgeInsets.all(8.0),
                                       decoration: BoxDecoration(
                                         color: Colors.white,
                                         borderRadius:

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../widgets/nav_rail.dart';
+import '../dashboard.dart';
 
 class RadioSelectionBox extends StatelessWidget {
   final String title;
@@ -31,8 +32,8 @@ class RadioSelectionBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(16.0),
-      padding: const EdgeInsets.all(24.0),
+      margin: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(16.0),
       constraints: const BoxConstraints(maxWidth: 500),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -50,7 +51,7 @@ class RadioSelectionBox extends StatelessWidget {
               color: lsuPurple,
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 4),
           ...options.asMap().entries.map((entry) {
             return RadioListTile(
               title: Text(
@@ -175,6 +176,8 @@ class _BinaryClueState extends State<BinaryClue>
     setState(() {
       if (incorrectQuestions.isEmpty) {
         _showCompletionMessage = true;
+        // Mark Binary Clue as completed (index 3)
+        ChallengeProgress.markCompleted(3);
       } else {
         _hasIncorrectAnswers = true;
         // Show alert dialog with incorrect questions
@@ -285,13 +288,13 @@ class _BinaryClueState extends State<BinaryClue>
                       children: [
                         Container(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 28, vertical: 14),
+                              horizontal: 12, vertical: 6),
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(12.0),
                           ),
                           child: const Text(
-                            'Binary Vacuum Tube Quiz',
+                            'Vacuum Tube Quiz',
                             style: TextStyle(
                               fontSize: 32,
                               fontWeight: FontWeight.bold,
@@ -300,7 +303,7 @@ class _BinaryClueState extends State<BinaryClue>
                             ),
                           ),
                         ),
-                        const SizedBox(height: 24),
+                        const SizedBox(height: 4),
                         Stack(
                           children: [
                             // Center container with content
@@ -339,8 +342,8 @@ class _BinaryClueState extends State<BinaryClue>
                                     child: getRadioSelectionBox(),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                        16, 16, 16, 16.0),
+                                    padding:
+                                        const EdgeInsets.fromLTRB(16, 4, 16, 4),
                                     child: Container(
                                       padding: const EdgeInsets.all(12.0),
                                       decoration: BoxDecoration(
@@ -438,7 +441,7 @@ class _BinaryClueState extends State<BinaryClue>
               top: 0,
               bottom: 0,
               child: ScavengerHuntNavRail(
-                selectedIndex: 3, 
+                selectedIndex: 3,
                 isExtended: true,
                 onExtendedChange: (value) {
                   setState(() {
@@ -457,12 +460,7 @@ class _BinaryClueState extends State<BinaryClue>
       case 0:
         return RadioSelectionBox(
           title: 'Which numbers can a vacuum tube represent?',
-          options: const [
-            '1, 2',
-            '0, 1, 2',
-            '0, 1',
-            '1, 2, 3'
-          ],
+          options: const ['1, 2', '0, 1, 2', '0, 1', '1, 2, 3'],
           radioSelection: _radioSelection1,
           correctAnswer: 2,
           onRadioChanged: (value) {
@@ -480,7 +478,12 @@ class _BinaryClueState extends State<BinaryClue>
       case 1:
         return RadioSelectionBox(
           title: 'What are binary vacuum tubes used for today?',
-          options: const ['Computers', 'High-End Audio Hardware', 'Luxury Electric Cars', 'UPS Trucks'],
+          options: const [
+            'Computers',
+            'High-End Audio Hardware',
+            'Luxury Electric Cars',
+            'UPS Trucks'
+          ],
           radioSelection: _radioSelection2,
           correctAnswer: 1,
           onRadioChanged: (value) {
