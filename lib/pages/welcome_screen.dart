@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pft_scavenger_hunt/pages/05_scavenger/duck_page.dart';
+import 'package:pft_scavenger_hunt/pages/12_scavenger/jp_fav_spot.dart';
 import '01_scavenger/riddle_passage.dart';
 import '03_scavenger/soduku_puzzle.dart';
 
@@ -54,7 +55,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
           .push(
         PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
-              const DuckPage(),
+              const JpFavSpot(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return FadeTransition(
               opacity: animation,

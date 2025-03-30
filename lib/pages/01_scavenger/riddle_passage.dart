@@ -185,6 +185,17 @@ class _RiddlePassageState extends State<RiddlePassage> {
             (
               children: 
               [
+                Container(
+                  color: lsuPurple,
+                  padding: const EdgeInsets.all(16.0),
+                  child: Center(
+                    child: Image.asset(
+                      'assets/lsu_logo_gold.png',
+                      width: 150,
+                      height: 75,
+                    ),
+                  ),
+                ),
                 // Hamburger menu at the top left
                 Align(
                   alignment: Alignment.topLeft,
@@ -218,25 +229,10 @@ class _RiddlePassageState extends State<RiddlePassage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children:
                           [
-                            Title
-                            (
-                              color: lsuPurple, 
-                              child: Text
-                              (
-                                "Riddle Passage",
-                                textAlign: TextAlign.center,
-                                style: TextStyle
-                                (
-                                  color: Colors.black,
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.bold
-                                ),
-                              )
-                            ),
-                            SizedBox
-                            (
-                              height: 50
-                            ),
+                            // SizedBox
+                            // (
+                            //   height: 20
+                            // ),
                             Text
                             (
                               "As we begin the hunt, you need to find where Jp went",
