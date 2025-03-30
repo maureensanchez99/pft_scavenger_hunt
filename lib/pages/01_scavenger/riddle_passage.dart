@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import '../../widgets/nav_rail.dart';
-// import '../assets/fonts';
+
+
+// Foolish Code
+
 
 class RiddlePassage extends StatefulWidget {
   const RiddlePassage({super.key});
@@ -34,7 +37,7 @@ class _RiddlePassageState extends State<RiddlePassage> {
       else
       {
         questionDone = false;
-        answerMessage = "You did not get the right answer, you fucking dumbass";
+        answerMessage = "You did not get the right answer, Try Again";
       }
     });
     _showBottomCard();
