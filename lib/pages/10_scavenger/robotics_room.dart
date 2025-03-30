@@ -26,6 +26,35 @@ class _RoboticsRoomState extends State<RoboticsRoom> {
     super.dispose();
   }
 
+ void _openImageFullScreen(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => Dialog(
+        backgroundColor: Colors.black,
+        insetPadding: EdgeInsets.zero,
+        child: Stack(
+          children: [
+            InteractiveViewer(
+              panEnabled: true,
+              boundaryMargin: const EdgeInsets.all(0),
+              minScale: 1.0,
+              maxScale: 3.0,
+              child: Image.asset('assets/roboticshint.jpg', fit: BoxFit.contain),
+            ),
+            Positioned(
+              top: 40,
+              right: 20,
+              child: IconButton(
+                icon: const Icon(Icons.close, color: Colors.white, size: 30),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,7 +71,7 @@ class _RoboticsRoomState extends State<RoboticsRoom> {
                   child: Image.asset(
                     'assets/lsu_logo.png',
                     width: 150,
-                    height: 75,
+                    height: 60,
                   ),
                 ),
               ),
@@ -102,9 +131,38 @@ class _RoboticsRoomState extends State<RoboticsRoom> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Image(
-                          image: AssetImage('assets/roboticshint.jpg'),
-                          height: 180,
+             GestureDetector(
+                          onTap: () => _openImageFullScreen(context),
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              Container(
+                                width: double.infinity,
+                                height: 300,
+                                decoration: BoxDecoration(
+                                  color: Colors.grey[300],
+                                  borderRadius: BorderRadius.circular(12),
+                                  image: const DecorationImage(
+                                    image: AssetImage('assets/roboticshint.jpg'),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 4, horizontal: 8),
+                                color: Colors.black54,
+                                child: const Text(
+                                  'Click to Zoom',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                         const SizedBox(height: 20),
                         const Text(
