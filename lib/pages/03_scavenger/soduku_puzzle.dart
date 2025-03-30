@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../widgets/nav_rail.dart';
+import '../dashboard.dart';
 
 // Foolish Code
 
@@ -51,6 +52,8 @@ class _SodukuPuzzleState extends State<SodukuPuzzle> {
       {
         questionDone = true;
         answerMessage = "You got it right! Good Job";
+        // Mark Sudoku puzzle as completed (index 2)
+        ChallengeProgress.markCompleted(2);
       }
       else
       {

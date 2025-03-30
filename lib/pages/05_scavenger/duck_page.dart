@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import '../../widgets/nav_rail.dart';
+import '../dashboard.dart';
 
 
 // Foolish Code
@@ -32,21 +33,24 @@ class _DuckPageState extends State<DuckPage> {
   {
     setState(() 
     {
+      bool isCorrect = false;
       for (int i = 0; i < answers.length; i++)
       {
         if(inputAnswer.text == answers[i])
         {
+          isCorrect = true;
           questionDone = true;
           answerMessage = "You got it right! Good Job";
+          // Mark Duck Page as completed (index 4)
+          ChallengeProgress.markCompleted(4);
           break;
         }
-        else
-        {
-          questionDone = false;
-          answerMessage = "You did not get the right answer, Try Again!";
-        }
       }
-     
+      
+      if (!isCorrect) {
+        questionDone = false;
+        answerMessage = "You did not get the right answer, Try Again!";
+      }
     });
     showBotttomCard();
   }

@@ -52,8 +52,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
 
     // Navigate after zoom animation completes
     Future.delayed(const Duration(milliseconds: 800), () {
-      Navigator.of(context)
-          .push(
+      Navigator.of(context).pushReplacement(
         PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
               const HomePage(),
@@ -65,14 +64,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
           },
           transitionDuration: const Duration(milliseconds: 300),
         ),
-      )
-          .then((_) {
-        // Reset the welcome screen when returning
-        setState(() {
-          _isZooming = false;
-          _zoomScale = 1.0;
-        });
-      });
+      );
     });
   }
 

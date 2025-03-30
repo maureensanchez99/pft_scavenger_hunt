@@ -55,6 +55,9 @@ class _HomePageState extends State<HomePage> {
   // State for nav rail
   bool _isNavRailExtended = false;
 
+  // Check if all challenges are completed
+  bool get _allChallengesCompleted => _challengesCompleted.every((completed) => completed);
+
   @override
   Widget build(BuildContext context) {
     // Calculate progress percentage
@@ -132,7 +135,9 @@ class _HomePageState extends State<HomePage> {
                         ),
                         const SizedBox(height: 16),
                         Text(
-                          'Good luck!',
+                          _allChallengesCompleted 
+                              ? 'Congratulations! You\'ve completed all the challenges!'
+                              : 'Good luck!',
                           style: TextStyle(
                             fontSize: 28,
                             fontWeight: FontWeight.bold,

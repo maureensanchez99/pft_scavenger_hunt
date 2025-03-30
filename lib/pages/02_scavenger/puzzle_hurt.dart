@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
 import '../../widgets/nav_rail.dart';
 import '../dashboard.dart';
 
@@ -10,37 +11,61 @@ class PuzzleScreen extends StatefulWidget {
 }
 
 class _PuzzleScreenState extends State<PuzzleScreen> {
-  // LSU colors
   static const Color lsuPurple = Color(0xFF461D7C);
   static const Color lsuGold = Color(0xFFFDD023);
-  static const Color lsuCorpPurple = Color(0xFF3C1053);
+  static const List<String> correctAnswers = ["Ts8", "92p", "fT4"];
+
+  final List<TextEditingController> _controllers =
+      List.generate(3, (index) => TextEditingController());
+  final List<String> _hints = [
+    "Hint 1: Check outside the ME office. Check around the tables. Sit down, maybe you'll see it.",
+    "Hint 2: Go where CSC students beg for help. Look outside, maybe the sun will heal you. Don't forget to check the windows.",
+    "Hint 3: Located around the 3300 offices. Look at the office plaques, they might be there. :>"
+  ];
+  final List<String> _currentHints = ["", "", ""];
+  final List<Color> _inputColors = List.generate(3, (index) => Colors.white);
+  final List<bool> _answersCorrect = List.generate(3, (index) => false);
+  bool _hasChecked = false;
 
   bool _isNavRailExtended = false;
-  final TextEditingController _answerController = TextEditingController();
-  bool _isCorrect = false;
-  bool _hasChecked = false;
-  String _hint = "";
-
-  static const String correctAnswer = "BENGALBOTS";
-  static const String hintText = "Hint: Look for the puzzle pieces in the hallway. The answer might be there!";
 
   @override
   void dispose() {
-    _answerController.dispose();
+    for (var controller in _controllers) {
+      controller.dispose();
+    }
     super.dispose();
   }
 
-  void _checkAnswer() {
+  void _showHint(int index) {
+    setState(() {
+      _currentHints[index] = _hints[index];
+    });
+  }
+
+  void _checkAllAnswers() {
     setState(() {
       _hasChecked = true;
-      if (_answerController.text.trim().toLowerCase() == correctAnswer.toLowerCase()) {
-        _isCorrect = true;
+      bool allCorrect = true;
+      
+      for (int i = 0; i < 3; i++) {
+        if (_controllers[i].text.trim().toLowerCase() == correctAnswers[i].toLowerCase()) {
+          _inputColors[i] = Colors.lightGreenAccent;
+          _answersCorrect[i] = true;
+        } else {
+          _inputColors[i] = Colors.redAccent.shade100;
+          _answersCorrect[i] = false;
+          allCorrect = false;
+        }
+      }
+
+      if (allCorrect) {
         // Mark Puzzle Hurt as completed (index 1)
         ChallengeProgress.markCompleted(1);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: const Text(
-              'Correct! Well done!',
+              'All answers correct! Well done!',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 16,
@@ -62,11 +87,10 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
           ),
         );
       } else {
-        _isCorrect = false;
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: const Text(
-              'Try again!',
+              'Some answers are incorrect. Try again!',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 16,
@@ -91,10 +115,33 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
     });
   }
 
-  void _showHint() {
-    setState(() {
-      _hint = hintText;
-    });
+  void _openImageFullScreen(BuildContext context, String imagePath) {
+    showDialog(
+      context: context,
+      builder: (context) => Dialog(
+        backgroundColor: Colors.black,
+        insetPadding: EdgeInsets.zero,
+        child: Stack(
+          children: [
+            InteractiveViewer(
+              panEnabled: true,
+              boundaryMargin: EdgeInsets.all(0),
+              minScale: 1.0,
+              maxScale: 3.0,
+              child: Image.asset(imagePath, fit: BoxFit.contain),
+            ),
+            Positioned(
+              top: 40,
+              right: 20,
+              child: IconButton(
+                icon: Icon(Icons.close, color: Colors.white, size: 30),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   @override
@@ -102,127 +149,151 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          // Main content
+          // Background Image and Content
           Container(
-            color: Colors.white,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/third_floor_bg.jpg'),
+                fit: BoxFit.cover,
+              ),
+            ),
             child: Column(
               children: [
-                // Logo and title at the top
-                Padding(
-                  padding: const EdgeInsets.only(top: 40.0),
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          IconButton(
-                            icon: const Icon(Icons.menu, color: lsuPurple),
-                            onPressed: () {
-                              setState(() {
-                                _isNavRailExtended = !_isNavRailExtended;
-                              });
-                            },
-                          ),
-                          Expanded(
-                            child: Center(
-                              child: Image.asset(
-                                'assets/lsu_logo.png',
-                                width: 150,
-                                height: 50,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 48, // Match the width of the menu button for balance
-                            child: IconButton(
-                              icon: const Icon(Icons.menu, color: Colors.transparent),
-                              onPressed: null,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 16),
-                      const Text(
-                        'Puzzle Hurt',
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xFF461D7C),
-                        ),
-                      ),
-                    ],
+                // LSU Logo Title
+                Container(
+                  color: lsuPurple,
+                  padding: const EdgeInsets.all(16.0),
+                  child: Center(
+                    child: Image.asset(
+                      'assets/lsu_logo_gold.png',
+                      width: 150,
+                      height: 75,
+                    ),
                   ),
                 ),
-                
-                // Main content
+
+                // Hamburger Menu
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 16.0, top: 16.0),
+                    child: IconButton(
+                      icon: const Icon(Icons.menu, color: lsuPurple),
+                      onPressed: () {
+                        setState(() {
+                          _isNavRailExtended = !_isNavRailExtended;
+                        });
+                      },
+                    ),
+                  ),
+                ),
+
+                // Main Content
                 Expanded(
                   child: SingleChildScrollView(
                     padding: const EdgeInsets.all(16.0),
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Text(
-                          'Find the puzzle pieces in the hallway and solve the riddle',
+                          'Find the Hidden Locations!',
                           style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
-                            color: Color(0xFF461D7C),
+                            fontFamily: 'ProximaNova',
                           ),
                           textAlign: TextAlign.center,
                         ),
                         const SizedBox(height: 20),
-                        
-                        // Answer input section
-                        Container(
-                          constraints: const BoxConstraints(maxWidth: 500),
-                          child: Column(
-                            children: [
-                              Row(
+                        Column(
+                          children: List.generate(3, (index) {
+                            return Padding(
+                              padding: const EdgeInsets.only(bottom: 20.0),
+                              child: Column(
                                 children: [
-                                  Expanded(
-                                    child: TextField(
-                                      controller: _answerController,
-                                      decoration: InputDecoration(
-                                        filled: true,
-                                        fillColor: _hasChecked
-                                            ? (_isCorrect ? Colors.green.withOpacity(0.2) : Colors.red.withOpacity(0.2))
-                                            : Colors.white,
-                                        border: const OutlineInputBorder(),
-                                        labelText: 'Enter Answer',
-                                      ),
+                                  GestureDetector(
+                                    onTap: () => _openImageFullScreen(
+                                        context, 'assets/puzzle_${index + 1}.jpg'),
+                                    child: Stack(
+                                      alignment: Alignment.center,
+                                      children: [
+                                        Container(
+                                          width: double.infinity,
+                                          height: 200,
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey[300],
+                                            borderRadius: BorderRadius.circular(12),
+                                            image: DecorationImage(
+                                              image: AssetImage(
+                                                  'assets/puzzle_${index + 1}.jpg'),
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 4, horizontal: 8),
+                                          color: Colors.black54,
+                                          child: Text(
+                                            'Click to Zoom',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                  const SizedBox(width: 10),
-                                  IconButton(
-                                    icon: const Icon(Icons.check, color: lsuPurple),
-                                    onPressed: _checkAnswer,
+                                  const SizedBox(height: 10),
+                                  TextField(
+                                    controller: _controllers[index],
+                                    decoration: InputDecoration(
+                                      filled: true,
+                                      fillColor: _inputColors[index],
+                                      border: OutlineInputBorder(),
+                                      labelText: 'Enter Answer',
+                                    ),
+                                  ),
+                                  TextButton(
+                                    onPressed: () => _showHint(index),
+                                    child: Text('Show Hint'),
+                                  ),
+                                  Text(
+                                    _currentHints[index],
+                                    style: TextStyle(color: Colors.grey[700]),
+                                    textAlign: TextAlign.center,
                                   ),
                                 ],
                               ),
-                              const SizedBox(height: 10),
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: lsuPurple,
-                                  foregroundColor: Colors.white,
-                                ),
-                                onPressed: _showHint,
-                                child: const Text('Need a Hint?'),
+                            );
+                          }),
+                        ),
+                        const SizedBox(height: 20),
+                        // Submit Button
+                        Container(
+                          constraints: const BoxConstraints(maxWidth: 500),
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            onPressed: _checkAllAnswers,
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: lsuPurple,
+                              foregroundColor: Colors.white,
+                              padding: const EdgeInsets.symmetric(vertical: 15),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
                               ),
-                              if (_hint.isNotEmpty)
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    _hint,
-                                    style: const TextStyle(
-                                      color: Color(0xFF461D7C),
-                                      fontSize: 16,
-                                      fontStyle: FontStyle.italic,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                            ],
+                            ),
+                            child: const Text(
+                              'Submit Answers',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
                         ),
+                        const SizedBox(height: 20),
                       ],
                     ),
                   ),
@@ -230,15 +301,15 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
               ],
             ),
           ),
-          
-          // Slide-in navigation rail when extended
+
+          // Navigation Rail
           if (_isNavRailExtended)
             Positioned(
               left: 0,
               top: 0,
               bottom: 0,
               child: ScavengerHuntNavRail(
-                selectedIndex: 1, // Puzzle Hurt is index 1
+                selectedIndex: 1, // Puzzle Hunt is index 1
                 isExtended: true,
                 onExtendedChange: (value) {
                   setState(() {
