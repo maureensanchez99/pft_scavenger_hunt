@@ -24,13 +24,12 @@ class _JpFavSpotState extends State<JpFavSpot>
   final inputAnswer = TextEditingController();
   String FinalAnswer = "foolishduck";
   
-  static const String correctAnswer = "JP";
 
-  @override
-  void dispose() {
-    _answerController.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   _answerController.dispose();
+  //   super.dispose();
+  // }
 
   void showFinalQuestion()
   {
@@ -42,6 +41,10 @@ class _JpFavSpotState extends State<JpFavSpot>
 
   void checkCorrect()
   {
+    setState(() 
+    {
+      ChallengeProgress.markCompleted(11);  
+    });
     if(inputAnswer.text == FinalAnswer)
     {
       Navigator.push

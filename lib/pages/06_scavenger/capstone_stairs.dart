@@ -97,6 +97,18 @@ class _CapstoneStairsState extends State<CapstoneStairs> {
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
                   children: [
+                     Container
+                     (
+                      color: lsuPurple,
+                      padding: const EdgeInsets.all(16.0),
+                      child: Center(
+                        child: Image.asset(
+                          'assets/lsu_logo_gold.png',
+                          width: 150,
+                          height: 75,
+                        ),
+                      ),
+                    ),
                     Align(
                       alignment: Alignment.topLeft,
                       child: IconButton(

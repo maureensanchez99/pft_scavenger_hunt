@@ -21,7 +21,7 @@ class _SodukuPuzzleState extends State<SodukuPuzzle> {
   // State for nav rail
   bool _isNavRailExtended = false;
   bool questionDone = false;
-  final String correctAnswer = "12345";
+  final String correctAnswer = "55523";
   String answerMessage = "";
   final inputAnswer = TextEditingController();
   bool hint1Press = false;
