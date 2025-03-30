@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../widgets/nav_rail.dart';
+import '../dashboard.dart';
 
 class RadioSelectionBox extends StatelessWidget {
   final String title;
@@ -175,6 +176,8 @@ class _PaneraPageState extends State<PaneraPage>
     setState(() {
       if (incorrectQuestions.isEmpty) {
         _showCompletionMessage = true;
+        // Mark Panera Page as completed (index 7)
+        ChallengeProgress.markCompleted(7);
       } else {
         _hasIncorrectAnswers = true;
         // Show alert dialog with incorrect questions
