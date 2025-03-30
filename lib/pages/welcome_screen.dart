@@ -4,6 +4,7 @@ import 'dart:math' as math;
 import '01_scavenger/riddle_passage.dart';
 import '03_scavenger/soduku_puzzle.dart';
 import 'dashboard.dart';
+import 'tutorial_page.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
@@ -64,7 +65,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
       Navigator.of(context).pushReplacement(
         PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
-              const HomePage(),
+              const TutorialPage(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return FadeTransition(
               opacity: animation,

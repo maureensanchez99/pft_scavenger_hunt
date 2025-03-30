@@ -12,6 +12,7 @@ import '09_scavenger/chevron_center.dart';
 import '10_scavenger/robotics_room.dart';
 import '11_scavenger/pft_page.dart';
 import '12_scavenger/jp_fav_spot.dart';
+import 'tutorial_page.dart';
 
 // Static class to manage challenge completion status
 class ChallengeProgress {
@@ -89,6 +90,27 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                     ),
+                    // Exit button at the top right
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 16.0, top: 40.0),
+                        child: IconButton(
+                          icon: const Icon(Icons.exit_to_app, color: Colors.red, size: 24),
+                          onPressed: () {
+                            Navigator.of(context).pushReplacement(
+                              PageRouteBuilder(
+                                pageBuilder: (context, animation, secondaryAnimation) => const TutorialPage(),
+                                transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                                  return FadeTransition(opacity: animation, child: child);
+                                },
+                                transitionDuration: const Duration(milliseconds: 300),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
                     // Arrow and text
                     Positioned(
                       left: 67,
@@ -103,7 +125,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           const SizedBox(width: 4),
                           Text(
-                            'Click here to access the challenges',
+                            'access the challenges',
                             style: TextStyle(
                               color: lsuGold,
                               fontSize: 16,
