@@ -9,7 +9,7 @@ import '06_scavenger/capstone_stairs.dart';
 import '07_scavenger/bengalbots_lab.dart';
 import '08_scavenger/panera_page.dart';
 import '09_scavenger/chevron_center.dart';
-import '10_scavenger/robot_thirdfloor.dart';
+import '10_scavenger/robotics_room.dart';
 import '11_scavenger/pft_page.dart';
 import '12_scavenger/jp_fav_spot.dart';
 

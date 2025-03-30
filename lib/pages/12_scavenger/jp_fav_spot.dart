@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../widgets/nav_rail.dart';
+import '../dashboard.dart';
 
 class JpFavSpot extends StatefulWidget {
   const JpFavSpot({super.key});
@@ -16,6 +17,42 @@ class _JpFavSpotState extends State<JpFavSpot> {
   // State for nav rail
   bool _isNavRailExtended = false;
   
+  void _checkAnswer(String answer) {
+    if (answer.toLowerCase() == 'correct_answer') {
+      // Mark JP's Favorite Spot as completed (index 11)
+      ChallengeProgress.markCompleted(11);
+      _showSuccessDialog();
+    } else {
+      _showTryAgainDialog();
+    }
+  }
+
+  void _showSuccessDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Success!'),
+          content: const Text('You found JP\'s favorite spot!'),
+          actions: [TextButton(child: const Text('OK'), onPressed: () => Navigator.of(context).pop())],
+        );
+      },
+    );
+  }
+
+  void _showTryAgainDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Try Again'),
+          content: const Text('That\'s not quite right. Keep looking!'),
+          actions: [TextButton(child: const Text('OK'), onPressed: () => Navigator.of(context).pop())],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

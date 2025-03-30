@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../widgets/nav_rail.dart';
+import '../dashboard.dart';
 
 class CapstoneStairs extends StatefulWidget {
   const CapstoneStairs({super.key});
@@ -48,7 +49,13 @@ class _CapstoneStairsState extends State<CapstoneStairs> {
         if (!_isCorrect[i]) allCorrect = false;
       });
     }
-    allCorrect ? _showClueDialog() : _showTryAgainDialog();
+    if (allCorrect) {
+      // Mark Capstone Stairs as completed (index 5)
+      ChallengeProgress.markCompleted(5);
+      _showClueDialog();
+    } else {
+      _showTryAgainDialog();
+    }
   }
 
   void _showClueDialog() {
@@ -111,9 +118,9 @@ class _CapstoneStairsState extends State<CapstoneStairs> {
                     ),
                     const SizedBox(height: 30.0),
                     const Text(
-                      'Wooden rails and hidden signs, '
-                      'a scrambled word between the lines\n'
-                      'Look to the side, don’t miss your cue\n',
+                      'Wooden rails and hidden signs,\n'
+                      'a scrambled word between the lines.\n'
+                      'Look to the side, don\'t miss your cue.',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontStyle: FontStyle.italic,
