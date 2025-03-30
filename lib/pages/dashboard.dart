@@ -91,17 +91,17 @@ class _HomePageState extends State<HomePage> {
                     ),
                     // Arrow and text
                     Positioned(
-                      left: 60,
-                      top: 48,
+                      left: 67,
+                      top: 53,
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           const Icon(
                             Icons.arrow_back,
                             color: Colors.white,
-                            size: 24,
+                            size: 17,
                           ),
-                          const SizedBox(width: 16),
+                          const SizedBox(width: 4),
                           Text(
                             'Click here to access the challenges',
                             style: TextStyle(
