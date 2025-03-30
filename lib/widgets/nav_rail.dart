@@ -9,7 +9,7 @@ import '../pages/05_scavenger/duck_page.dart';
 import '../pages/12_scavenger/jp_fav_spot.dart';
 import '../pages/08_scavenger/panera_page.dart';
 import '../pages/11_scavenger/pft_page.dart';
-import '../pages/10_scavenger/robot_thirdfloor.dart';
+import '../pages/10_scavenger/robotics_room.dart';
 import '../pages/02_scavenger/puzzle_hurt.dart';
 import '../pages/dashboard.dart';
 
@@ -105,7 +105,7 @@ class _ScavengerHuntNavRailState extends State<ScavengerHuntNavRail> {
                 _buildDestinationTile(6, 'Bengal Bots', Icons.science, const BengalbotsLab()),
                 _buildDestinationTile(7, 'Panera', Icons.restaurant, const PaneraPage()),
                 _buildDestinationTile(8, 'Chevron Center', Icons.business, const ChevronCenter()),
-                _buildDestinationTile(9, 'Robot on 3rd Floor', Icons.smart_toy, const RobotThirdFloor()),
+                _buildDestinationTile(9, 'Robotics Room', Icons.smart_toy, const RoboticsRoom()),
                 _buildDestinationTile(10, 'PFT', Icons.school, const PftPage()),
                 _buildDestinationTile(11, 'JP\'s Favorite Spot', Icons.favorite, const JpFavSpot()),
               ],
