@@ -142,6 +142,17 @@ class _SodukuPuzzleState extends State<SodukuPuzzle> {
             (
               children: 
               [
+                Container(
+                  color: lsuPurple,
+                  padding: const EdgeInsets.all(16.0),
+                  child: Center(
+                    child: Image.asset(
+                      'assets/lsu_logo_gold.png',
+                      width: 150,
+                      height: 75,
+                    ),
+                  ),
+                ),
                 // Hamburger menu at the top left
                 Align
                 (

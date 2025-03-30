@@ -21,7 +21,7 @@ class _DuckPageState extends State<DuckPage> {
   
   // State for nav rail
   bool _isNavRailExtended = false;
-  final List<String> answers = ["duck", "Duck", "Rubber Duck", "Rubber duck", "rubber duck", "rubber Duck", "Rubber Duckie", "rubber Duckie", "Rubber duckie", "rubber duckie" "duckie", "Duckie", "ducky", "Ducky", "Rubber ducky", "Rubber Ducky", "rubber ducky", "rubber Ducky"];
+  final List<String> answers = ["duck", "Duck", "Rubber Duck", "Rubber duck", "rubber duck", "rubber Duck", "Rubber Duckie", "rubber Duckie", "Rubber duckie", "rubber duckie", "duckie", "Duckie", "ducky", "Ducky", "Rubber ducky", "Rubber Ducky", "rubber ducky", "rubber Ducky"];
   final inputAnswer = TextEditingController();
   String answerMessage = "";
   bool questionDone = false;
@@ -38,7 +38,7 @@ class _DuckPageState extends State<DuckPage> {
         {
           questionDone = true;
           answerMessage = "You got it right! Good Job";
-          continue;
+          break;
         }
         else
         {
@@ -114,6 +114,17 @@ class _DuckPageState extends State<DuckPage> {
             ),
             child: Column(
               children: [
+                Container(
+                  color: lsuPurple,
+                  padding: const EdgeInsets.all(16.0),
+                  child: Center(
+                    child: Image.asset(
+                      'assets/lsu_logo_gold.png',
+                      width: 150,
+                      height: 75,
+                    ),
+                  ),
+                ),
                 // Hamburger menu at the top left
                 Align(
                   alignment: Alignment.topLeft,
@@ -182,11 +193,87 @@ class _DuckPageState extends State<DuckPage> {
                               );
                             },
                           ),
-                          SizedBox(height:20),
                           Text
                           (
-                            "data,"
-                          )
+                            textAlign: TextAlign.center,
+                            "Click the image to zoom in",
+                            style: TextStyle
+                            (
+                              color: lsuPurple,
+                            )
+                          ),
+                         if (!questionDone)
+                              TextField
+                              (
+                                textAlign: TextAlign.center,
+                                style: TextStyle
+                                (
+                                  fontSize: 20
+                                ),
+                                controller: inputAnswer,
+                                decoration: InputDecoration
+                                (
+                                  border: OutlineInputBorder
+                                    (
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  hintText: "What is the animal?",
+                                  hintStyle: TextStyle
+                                    (
+                                      color: Color(0xFF3C1053),
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold
+                                    ),
+                                ),
+                              ),
+                            if(!questionDone)
+                              ElevatedButton
+                              (
+                                onPressed: checkAnswer, 
+                                style: ElevatedButton.styleFrom
+                                (
+                                  backgroundColor: Color(0xFF3C1053)
+                                ),
+                                child: 
+                                  Text
+                                  (
+                                    "Check",
+                                    style: TextStyle
+                                    (
+                                      fontSize: 15,
+                                      color: Color(0xFFF1EEDB)
+                                    ),
+                                  )
+                                    
+                                  
+                              )
+                            else
+                              SizedBox
+                              (
+                                height: 50,
+                                width: 100,
+                                child:
+                                (
+                                  DecoratedBox
+                                  (
+                                    decoration: BoxDecoration
+                                    (
+                                      borderRadius: BorderRadius.circular(40),
+                                      color: Colors.green,
+                                    ),
+                                    child:
+                                    (
+                                      Icon
+                                      (
+                                        Icons.check,
+                                        color: Colors.white
+                                      )
+                                    )
+                                  )
+                                )
+                              )
                           
 
                         ],
