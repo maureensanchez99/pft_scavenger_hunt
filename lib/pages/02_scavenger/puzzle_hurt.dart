@@ -28,7 +28,7 @@ class PuzzleScreen extends StatefulWidget {
 
 class _PuzzleScreenState extends State<PuzzleScreen> {
   static const Color lsuPurple = Color(0xFF461D7C);
-  static const Color lsuGold = Color(0xFFFDD023); 
+  static const Color lsuGold = Color(0xFFFDD023);
   static const List<String> correctAnswers = ["Ts8", "92p", "fT4"];
 
   final List<TextEditingController> _controllers =
@@ -36,7 +36,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
   final List<String> _hints = [
     "Hint 1: Check outside the ME office. Check around the tables. Sit down, maybe you'll see it.",
     "Hint 2: Go where CSC students beg for help. Look outside, maybe the sun will heal you. Don't forget to check the windows.",
-    "Hint 3: Located around the 3300 offices. Look at the office plaques, they'll might be there. :>"
+    "Hint 3: Located around the 3300 offices. Look at the office plaques, they might be there. :>"
   ];
   final List<String> _currentHints = ["", "", ""];
   final List<Color> _inputColors = List.generate(3, (index) => Colors.white);
@@ -97,19 +97,9 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: lsuPurple,
-        foregroundColor: lsuGold,
-        title: Image.asset(
-          'assets/lsu_logo_gold.png',
-          width: 150,
-          height: 100,
-        ),
-      ),
       body: Stack(
         children: [
-          // Main content
+          // Background Image and Content
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
@@ -119,7 +109,20 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
             ),
             child: Column(
               children: [
-                // Hamburger menu at the top left
+                // LSU Logo Title
+                Container(
+                  color: lsuPurple,
+                  padding: const EdgeInsets.all(16.0),
+                  child: Center(
+                    child: Image.asset(
+                      'assets/lsu_logo_gold.png',
+                      width: 150,
+                      height: 75,
+                    ),
+                  ),
+                ),
+
+                // Hamburger Menu
                 Align(
                   alignment: Alignment.topLeft,
                   child: Padding(
@@ -134,8 +137,8 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                     ),
                   ),
                 ),
-                
-                // Main content
+
+                // Main Content
                 Expanded(
                   child: SingleChildScrollView(
                     padding: const EdgeInsets.all(16.0),
@@ -193,41 +196,23 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                                     ),
                                   ),
                                   const SizedBox(height: 10),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Expanded(
-                                        child: TextField(
-                                          controller: _controllers[index],
-                                          decoration: InputDecoration(
-                                            filled: true,
-                                            fillColor: _inputColors[index],
-                                            border: OutlineInputBorder(),
-                                            labelText: 'Enter Answer',
-                                          ),
-                                        ),
-                                      ),
-                                      const SizedBox(width: 5),
-                                      IconButton(
-                                        icon: Icon(Icons.check, color: lsuPurple),
-                                        onPressed: () => _checkAnswer(index),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 5),
-                                  ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: lsuPurple,
-                                      foregroundColor: Colors.white,
+                                  TextField(
+                                    controller: _controllers[index],
+                                    decoration: InputDecoration(
+                                      filled: true,
+                                      fillColor: _inputColors[index],
+                                      border: OutlineInputBorder(),
+                                      labelText: 'Enter Answer',
                                     ),
-                                    onPressed: () => _showHint(index),
-                                    child: const Text('Hint'),
                                   ),
-                                  const SizedBox(height: 5),
+                                  TextButton(
+                                    onPressed: () => _showHint(index),
+                                    child: Text('Show Hint'),
+                                  ),
                                   Text(
                                     _currentHints[index],
-                                    style: const TextStyle(
-                                        fontSize: 14, fontStyle: FontStyle.italic),
+                                    style: TextStyle(color: Colors.grey[700]),
+                                    textAlign: TextAlign.center,
                                   ),
                                 ],
                               ),
@@ -241,8 +226,8 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
               ],
             ),
           ),
-          
-          // Slide-in navigation rail when extended
+
+          // Navigation Rail
           if (_isNavRailExtended)
             Positioned(
               left: 0,
