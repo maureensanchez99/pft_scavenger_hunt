@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
 import '../../widgets/nav_rail.dart';
+import '../dashboard.dart';
 
 class PftPage extends StatefulWidget {
   const PftPage({super.key});
@@ -57,7 +58,11 @@ class _PftPageState extends State<PftPage> {
       }
     });
 
-    if (!allCorrect) {
+    if (allCorrect) {
+      // Mark PFT Page as completed (index 10)
+      ChallengeProgress.markCompleted(10);
+      _showSuccessDialog();
+    } else {
       _showTryAgainDialog();
     }
   }
@@ -69,6 +74,19 @@ class _PftPageState extends State<PftPage> {
         return AlertDialog(
           title: const Text('Try Again!'),
           content: const Text('The values are incorrect.'),
+          actions: [TextButton(child: const Text('OK'), onPressed: () => Navigator.of(context).pop())],
+        );
+      },
+    );
+  }
+
+  void _showSuccessDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Success!'),
+          content: const Text('You found all the correct values!'),
           actions: [TextButton(child: const Text('OK'), onPressed: () => Navigator.of(context).pop())],
         );
       },

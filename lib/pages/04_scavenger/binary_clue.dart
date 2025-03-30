@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../widgets/nav_rail.dart';
+import '../dashboard.dart';
 
 class RadioSelectionBox extends StatelessWidget {
   final String title;
@@ -175,6 +176,8 @@ class _BinaryClueState extends State<BinaryClue>
     setState(() {
       if (incorrectQuestions.isEmpty) {
         _showCompletionMessage = true;
+        // Mark Binary Clue as completed (index 3)
+        ChallengeProgress.markCompleted(3);
       } else {
         _hasIncorrectAnswers = true;
         // Show alert dialog with incorrect questions

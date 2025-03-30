@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../widgets/nav_rail.dart';
+import '../dashboard.dart';
 
 class JpFavSpot extends StatefulWidget {
   const JpFavSpot({super.key});
@@ -16,7 +17,17 @@ class _JpFavSpotState extends State<JpFavSpot> {
   // State for nav rail
   bool _isNavRailExtended = false;
   bool finalQuestionReady = false;
+  final TextEditingController _answerController = TextEditingController();
+  bool _isCorrect = false;
+  bool _hasChecked = false;
   
+  static const String correctAnswer = "JP";
+
+  @override
+  void dispose() {
+    _answerController.dispose();
+    super.dispose();
+  }
 
   void showFinalQuestion()
   {
@@ -26,10 +37,66 @@ class _JpFavSpotState extends State<JpFavSpot> {
     });
   }
 
-
-
-
-
+  void _checkAnswer() {
+    setState(() {
+      _hasChecked = true;
+      if (_answerController.text.trim().toLowerCase() == correctAnswer.toLowerCase()) {
+        _isCorrect = true;
+        // Mark JP's favorite spot as completed (index 11)
+        ChallengeProgress.markCompleted(11);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text(
+              'Correct! Well done!',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            backgroundColor: Colors.green,
+            duration: const Duration(seconds: 2),
+            behavior: SnackBarBehavior.floating,
+            margin: const EdgeInsets.all(16),
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(8)),
+            ),
+            dismissDirection: DismissDirection.horizontal,
+            animation: CurvedAnimation(
+              parent: const AlwaysStoppedAnimation(1),
+              curve: Curves.easeInOut,
+            ),
+          ),
+        );
+      } else {
+        _isCorrect = false;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text(
+              'Try again!',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            backgroundColor: Colors.red,
+            duration: const Duration(seconds: 2),
+            behavior: SnackBarBehavior.floating,
+            margin: const EdgeInsets.all(16),
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(8)),
+            ),
+            dismissDirection: DismissDirection.horizontal,
+            animation: CurvedAnimation(
+              parent: const AlwaysStoppedAnimation(1),
+              curve: Curves.easeInOut,
+            ),
+          ),
+        );
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +179,6 @@ class _JpFavSpotState extends State<JpFavSpot> {
                                   (
                                     color: lsuGold,
                                     fontWeight: FontWeight.bold
-                                  
                                   )
                                 )
                               )
@@ -124,7 +190,48 @@ class _JpFavSpotState extends State<JpFavSpot> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: 
                             [
-                              
+                              Text
+                              (
+                                textAlign: TextAlign.center,
+                                "What is JP's favorite spot?",
+                                style: TextStyle
+                                (
+                                  color: Color(0xFF3C1053),
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold
+                                ),
+                              ),
+                              SizedBox(height: 20),
+                              Container(
+                                constraints: const BoxConstraints(maxWidth: 500),
+                                child: TextField(
+                                  controller: _answerController,
+                                  decoration: InputDecoration(
+                                    filled: true,
+                                    fillColor: _hasChecked
+                                        ? (_isCorrect ? Colors.green.withOpacity(0.2) : Colors.red.withOpacity(0.2))
+                                        : Colors.white,
+                                    border: const OutlineInputBorder(),
+                                    labelText: 'Enter Answer',
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 20),
+                              ElevatedButton(
+                                onPressed: _checkAnswer,
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Color(0xFF3C1053),
+                                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                                ),
+                                child: Text(
+                                  'Submit Answer',
+                                  style: TextStyle(
+                                    color: lsuGold,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
                             ],
                           )
                         ],

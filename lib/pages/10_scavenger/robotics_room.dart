@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../widgets/nav_rail.dart';
+import '../dashboard.dart';
 
 class RoboticsRoom extends StatefulWidget {
   const RoboticsRoom({super.key});
@@ -53,6 +54,20 @@ class _RoboticsRoomState extends State<RoboticsRoom> {
         ),
       ),
     );
+  }
+
+  void _checkAnswer() {
+    if (_controller.text.trim().toLowerCase() == _correctAnswer) {
+      // Mark Robot on 3rd Floor as completed (index 9)
+      ChallengeProgress.markCompleted(9);
+      setState(() {
+        _feedback = 'Correct! Well done!';
+      });
+    } else {
+      setState(() {
+        _feedback = 'Try again!';
+      });
+    }
   }
 
   @override
@@ -195,31 +210,28 @@ class _RoboticsRoomState extends State<RoboticsRoom> {
                         ),
                         const SizedBox(height: 12),
                         TextButton(
-                          onPressed: () {
-                            setState(() {
-                              if (_controller.text.trim().toLowerCase() == _correctAnswer) {
-                                _feedback = '✅ Correct!';
-                              } else {
-                                _feedback = '❌ Try again!';
-                              }
-                            });
-                          },
-                          style: TextButton.styleFrom(
-                            foregroundColor: lsuPurple,
-                            backgroundColor: lsuGold,
-                            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                          ),
-                          child: const Text('Check Answer'),
-                        ),
-                        const SizedBox(height: 12),
-                        Text(
-                          _feedback,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
+                          onPressed: _checkAnswer,
+                          child: const Text(
+                            'Check Answer',
+                            style: TextStyle(
+                              color: lsuGold,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
+                        if (_feedback.isNotEmpty)
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8.0),
+                            child: Text(
+                              _feedback,
+                              style: TextStyle(
+                                color: _feedback.contains('Correct') ? Colors.green : Colors.red,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
                       ],
                     ),
                   ),

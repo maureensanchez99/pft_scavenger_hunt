@@ -3,6 +3,7 @@ import 'package:pft_scavenger_hunt/pages/05_scavenger/duck_page.dart';
 import 'package:pft_scavenger_hunt/pages/12_scavenger/jp_fav_spot.dart';
 import '01_scavenger/riddle_passage.dart';
 import '03_scavenger/soduku_puzzle.dart';
+import 'dashboard.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
@@ -51,11 +52,10 @@ class _WelcomeScreenState extends State<WelcomeScreen>
 
     // Navigate after zoom animation completes
     Future.delayed(const Duration(milliseconds: 800), () {
-      Navigator.of(context)
-          .push(
+      Navigator.of(context).pushReplacement(
         PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
-              const RiddlePassage(),
+              const HomePage(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return FadeTransition(
               opacity: animation,
@@ -64,14 +64,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
           },
           transitionDuration: const Duration(milliseconds: 300),
         ),
-      )
-          .then((_) {
-        // Reset the welcome screen when returning
-        setState(() {
-          _isZooming = false;
-          _zoomScale = 1.0;
-        });
-      });
+      );
     });
   }
 
