@@ -132,7 +132,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 25,
-                          vertical: 10,
+                          vertical: 11,
                         ),
                         backgroundColor: lsuGold,
                         foregroundColor: Colors.black,
