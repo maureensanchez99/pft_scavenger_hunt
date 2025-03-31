@@ -90,7 +90,7 @@ class _CapstoneStairsState extends State<CapstoneStairs> {
       body: Stack(
         children: <Widget>[
           // Main content
-          SingleChildScrollView(
+          Expanded(
           child: Container(
             color: lsuLightGold,
             child: Center(
