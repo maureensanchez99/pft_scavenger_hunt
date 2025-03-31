@@ -1,6 +1,6 @@
 # pft_scavenger_hunt
 
-A Flutter app.
+A Flutter App.
 
 ## Getting Started
 
