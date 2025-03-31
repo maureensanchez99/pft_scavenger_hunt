@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../pages/welcome_screen.dart';
+//Foolish Code
 
 class finalPage extends StatefulWidget
 {
