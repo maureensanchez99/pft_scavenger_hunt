@@ -44,7 +44,7 @@ The scavenger hunt follows this specific order:
 
 ## Development
 
-This project was developed using Flutter and follows standard Flutter development practices.
+This project was developed using Flutter and follows standard Flutter development practices. Also follows LSU color palette guidelines.
 
 ## Credits
 
