@@ -153,7 +153,6 @@ class _PaneraPageState extends State<PaneraPage>
   // State for nav rail
   bool _isNavRailExtended = false;
 
-  // Initialize radio selections to -1 (no selection)
   int _radioSelection1 = -1;
   int _radioSelection2 = -1;
   int _radioSelection3 = -1;
