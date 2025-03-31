@@ -171,7 +171,7 @@ class _HomePageState extends State<HomePage> {
                         
                         // Progress section
                         Text(
-                          'Your Progress',
+                          'Your Progress so Far',
                           style: TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.bold,
