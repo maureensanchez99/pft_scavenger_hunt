@@ -153,6 +153,7 @@ class _PaneraPageState extends State<PaneraPage>
   // State for nav rail
   bool _isNavRailExtended = false;
 
+  // Initialize radio selections to -1 (no selection)
   int _radioSelection1 = -1;
   int _radioSelection2 = -1;
   int _radioSelection3 = -1;
@@ -163,7 +164,6 @@ class _PaneraPageState extends State<PaneraPage>
   bool _hasIncorrectAnswers = false;
   bool _showCompletionMessage = false;
 
-  // Method to check all answers
   void checkAnswers() {
     List<int> incorrectQuestions = [];
 
@@ -423,17 +423,12 @@ class _PaneraPageState extends State<PaneraPage>
                             ),
                           ],
                         ),
-                        SizedBox(height:20),
-                              if(ChallengeProgress.isCompleted(10) == true)
-                              Text
-                              (
-                                style: TextStyle
-                                (
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20
-                                ),
-                                "d"
-                              )
+                        SizedBox(height: 20),
+                        if (ChallengeProgress.isCompleted(10) == true)
+                          Text(
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 20),
+                              "d")
 
                         // Add your content here
                       ],
