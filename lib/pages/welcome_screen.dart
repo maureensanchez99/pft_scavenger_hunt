@@ -66,8 +66,8 @@ class _WelcomeScreenState extends State<WelcomeScreen>
       Navigator.of(context).pushReplacement(
         PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
-              //const TutorialPage(),
-              const PftPage(),
+              const TutorialPage(),
+              //const PftPage(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return FadeTransition(
               opacity: animation,
