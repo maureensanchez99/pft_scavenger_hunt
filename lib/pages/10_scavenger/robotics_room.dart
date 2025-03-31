@@ -126,7 +126,7 @@ class _RoboticsRoomState extends State<RoboticsRoom> {
           // Navigation rail
           if (_isNavRailExtended)
             ScavengerHuntNavRail(
-              selectedIndex: 10,
+              selectedIndex: 9,
               isExtended: true,
               onExtendedChange: (value) {
                 setState(() {
