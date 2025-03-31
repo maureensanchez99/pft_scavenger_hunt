@@ -240,7 +240,7 @@ class _PaneraPageState extends State<PaneraPage>
                 image: DecorationImage(
                   image: AssetImage('../../../assets/lsu_oak_cropped.png'),
                   fit: BoxFit.cover,
-                  scale: .3, // Changed from 0.5 to 0.3 for even more zoom
+                  scale: .3,
                   alignment: Alignment.center,
                 ),
               ),
