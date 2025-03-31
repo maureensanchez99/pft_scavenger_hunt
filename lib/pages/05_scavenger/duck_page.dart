@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import '../../widgets/nav_rail.dart';
+import '../dashboard.dart';
 
 
 // Foolish Code
@@ -32,21 +33,24 @@ class _DuckPageState extends State<DuckPage> {
   {
     setState(() 
     {
+      bool isCorrect = false;
       for (int i = 0; i < answers.length; i++)
       {
         if(inputAnswer.text == answers[i])
         {
+          isCorrect = true;
           questionDone = true;
           answerMessage = "You got it right! Good Job";
+          // Mark Duck Page as completed (index 4)
+          ChallengeProgress.markCompleted(4);
           break;
         }
-        else
-        {
-          questionDone = false;
-          answerMessage = "You did not get the right answer, Try Again!";
-        }
       }
-     
+      
+      if (!isCorrect) {
+        questionDone = false;
+        answerMessage = "You did not get the right answer, Try Again!";
+      }
     });
     showBotttomCard();
   }
@@ -142,11 +146,12 @@ class _DuckPageState extends State<DuckPage> {
                 ),
                 
                 // Main content
-                SingleChildScrollView
+                Expanded
+                (
+                  child: SingleChildScrollView
                       (
                         child: Column
                         (
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: 
                           [
                             Text
@@ -160,6 +165,7 @@ class _DuckPageState extends State<DuckPage> {
                                 fontWeight: FontWeight.bold
                               )
                             ),
+                            SizedBox(height: 20),
                             GestureDetector
                             (
                               child: Image.asset("assets/commons.PNG"),
@@ -201,52 +207,57 @@ class _DuckPageState extends State<DuckPage> {
                                 color: lsuPurple,
                               )
                             ),
+                            SizedBox(height: 20),
                           if (!questionDone)
-                                TextField
-                                (
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle
-                                  (
-                                    fontSize: 20
-                                  ),
-                                  controller: inputAnswer,
-                                  decoration: InputDecoration
-                                  (
-                                    border: OutlineInputBorder
-                                      (
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                    filled: true,
-                                    fillColor: Colors.white,
-                                    hintText: "What is the animal?",
-                                    hintStyle: TextStyle
-                                      (
-                                        color: Color(0xFF3C1053),
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold
-                                      ),
-                                  ),
-                                ),
-                              if(!questionDone)
-                                ElevatedButton
-                                (
-                                  onPressed: checkAnswer, 
-                                  style: ElevatedButton.styleFrom
-                                  (
-                                    backgroundColor: Color(0xFF3C1053)
-                                  ),
-                                  child: 
-                                    Text
+                                Column(
+                                  children: [
+                                    TextField
                                     (
-                                      "Check",
+                                      textAlign: TextAlign.center,
                                       style: TextStyle
                                       (
-                                        fontSize: 15,
-                                        color: Color(0xFFF1EEDB)
+                                        fontSize: 20
                                       ),
+                                      controller: inputAnswer,
+                                      decoration: InputDecoration
+                                      (
+                                        border: OutlineInputBorder
+                                          (
+                                            borderRadius: BorderRadius.circular(10),
+                                          ),
+                                        filled: true,
+                                        fillColor: Colors.white,
+                                        hintText: "What is the animal?",
+                                        hintStyle: TextStyle
+                                          (
+                                            color: Color(0xFF3C1053),
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold
+                                          ),
+                                      ),
+                                    ),
+                                    SizedBox(height:20),
+                                    ElevatedButton
+                                    (
+                                      onPressed: checkAnswer, 
+                                      style: ElevatedButton.styleFrom
+                                      (
+                                        backgroundColor: Color(0xFF3C1053)
+                                      ),
+                                      child: 
+                                        Text
+                                        (
+                                          "Check",
+                                          style: TextStyle
+                                          (
+                                            fontSize: 15,
+                                            color: Color(0xFFF1EEDB)
+                                          ),
+                                        )
+                                          
+                                        
                                     )
-                                      
-                                    
+                                  ],
                                 )
                               else
                                 SizedBox
@@ -272,153 +283,22 @@ class _DuckPageState extends State<DuckPage> {
                                       )
                                     )
                                   )
-                                )
+                                ),
+                                SizedBox(height:20),
+                              if(ChallengeProgress.isCompleted(10) == true)
+                              Text
+                              (
+                                style: TextStyle
+                                (
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20
+                                ),
+                                "i"
+                              )
                           ],
                         ),
                       )
-                // Expanded
-                // (
-                //   child: Center
-                //   (
-                //     child: Padding
-                //     (
-                //       padding: const EdgeInsets.all(16.0),
-                //       child: SingleChildScrollView
-                //       (
-                //         child: Column
-                //         (
-                //           children: 
-                //           [
-                //             Text
-                //             (
-                //               textAlign: TextAlign.center,
-                //               "Story Time:\n A while back, someone vandalise PFT with a specific animal\n One of said animal was put in The Commons\n Go find it....",
-                //               style: TextStyle
-                //               ( 
-                //                 color: lsuPurple,
-                //                 fontSize: 16,
-                //                 fontWeight: FontWeight.bold
-                //               )
-                //             ),
-                //             GestureDetector
-                //             (
-                //               child: Image.asset("assets/commons.PNG"),
-                //               onTap:() 
-                //               {
-                //               showDialog
-                //               (
-                //                 context: context,
-                //                 builder: (BuildContext context)
-                //                 {
-                //                   return Dialog
-                //                   (
-                //                     insetPadding: EdgeInsets.zero,
-                //                     child: Stack
-                //                     (
-                //                       children: 
-                //                       [
-                //                         InteractiveViewer
-                //                         (
-                //                           boundaryMargin: const EdgeInsets.all(0),
-                //                           minScale: 1,
-                //                           maxScale: 4,
-                //                           panAxis: PanAxis.free,
-                //                           child: Image.asset("assets/commons.PNG", fit: BoxFit.contain)
-                //                         )
-                //                       ],
-                //                     ),
-                //                   );
-                //                 }
-                //                 );
-                //               },
-                //             ),
-                //             Text
-                //             (
-                //               textAlign: TextAlign.center,
-                //               "Click the image to zoom in",
-                //               style: TextStyle
-                //               (
-                //                 color: lsuPurple,
-                //               )
-                //             ),
-                //           if (!questionDone)
-                //                 TextField
-                //                 (
-                //                   textAlign: TextAlign.center,
-                //                   style: TextStyle
-                //                   (
-                //                     fontSize: 20
-                //                   ),
-                //                   controller: inputAnswer,
-                //                   decoration: InputDecoration
-                //                   (
-                //                     border: OutlineInputBorder
-                //                       (
-                //                         borderRadius: BorderRadius.circular(10),
-                //                       ),
-                //                     filled: true,
-                //                     fillColor: Colors.white,
-                //                     hintText: "What is the animal?",
-                //                     hintStyle: TextStyle
-                //                       (
-                //                         color: Color(0xFF3C1053),
-                //                         fontSize: 14,
-                //                         fontWeight: FontWeight.bold
-                //                       ),
-                //                   ),
-                //                 ),
-                //               if(!questionDone)
-                //                 ElevatedButton
-                //                 (
-                //                   onPressed: checkAnswer, 
-                //                   style: ElevatedButton.styleFrom
-                //                   (
-                //                     backgroundColor: Color(0xFF3C1053)
-                //                   ),
-                //                   child: 
-                //                     Text
-                //                     (
-                //                       "Check",
-                //                       style: TextStyle
-                //                       (
-                //                         fontSize: 15,
-                //                         color: Color(0xFFF1EEDB)
-                //                       ),
-                //                     )
-                                      
-                                    
-                //                 )
-                //               else
-                //                 SizedBox
-                //                 (
-                //                   height: 50,
-                //                   width: 100,
-                //                   child:
-                //                   (
-                //                     DecoratedBox
-                //                     (
-                //                       decoration: BoxDecoration
-                //                       (
-                //                         borderRadius: BorderRadius.circular(40),
-                //                         color: Colors.green,
-                //                       ),
-                //                       child:
-                //                       (
-                //                         Icon
-                //                         (
-                //                           Icons.check,
-                //                           color: Colors.white
-                //                         )
-                //                       )
-                //                     )
-                //                   )
-                //                 )
-                //           ],
-                //         ),
-                //       )
-                //     ),
-                //   ),
-                // ),
+                ),
               ],
             ),
           ),

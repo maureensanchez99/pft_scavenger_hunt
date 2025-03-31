@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:confetti/confetti.dart';
 import 'dart:math' as math;
 import '01_scavenger/riddle_passage.dart';
+import '03_scavenger/soduku_puzzle.dart';
+import '../pages/11_scavenger/pft_page.dart';
+import 'dashboard.dart';
+import 'tutorial_page.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
@@ -59,11 +63,11 @@ class _WelcomeScreenState extends State<WelcomeScreen>
 
     // Navigate after zoom animation completes
     Future.delayed(const Duration(milliseconds: 800), () {
-      Navigator.of(context)
-          .push(
+      Navigator.of(context).pushReplacement(
         PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
-              const RiddlePassage(),
+              const TutorialPage(),
+              //const PftPage(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return FadeTransition(
               opacity: animation,
@@ -72,14 +76,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
           },
           transitionDuration: const Duration(milliseconds: 300),
         ),
-      )
-          .then((_) {
-        // Reset the welcome screen when returning
-        setState(() {
-          _isZooming = false;
-          _zoomScale = 1.0;
-        });
-      });
+      );
     });
   }
 
@@ -138,7 +135,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 25,
-                          vertical: 10,
+                          vertical: 11,
                         ),
                         backgroundColor: lsuGold,
                         foregroundColor: Colors.black,

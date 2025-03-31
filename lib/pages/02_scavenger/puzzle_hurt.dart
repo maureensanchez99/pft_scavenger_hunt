@@ -1,29 +1,13 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import '../../widgets/nav_rail.dart';
-
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Puzzle Hunt',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: PuzzleScreen(),
-    );
-  }
-}
+import '../dashboard.dart';
 
 class PuzzleScreen extends StatefulWidget {
   const PuzzleScreen({super.key});
 
   @override
-  _PuzzleScreenState createState() => _PuzzleScreenState();
+  State<PuzzleScreen> createState() => _PuzzleScreenState();
 }
 
 class _PuzzleScreenState extends State<PuzzleScreen> {
@@ -40,8 +24,18 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
   ];
   final List<String> _currentHints = ["", "", ""];
   final List<Color> _inputColors = List.generate(3, (index) => Colors.white);
+  final List<bool> _answersCorrect = List.generate(3, (index) => false);
+  bool _hasChecked = false;
 
   bool _isNavRailExtended = false;
+
+  @override
+  void dispose() {
+    for (var controller in _controllers) {
+      controller.dispose();
+    }
+    super.dispose();
+  }
 
   void _showHint(int index) {
     setState(() {
@@ -49,18 +43,74 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
     });
   }
 
-  void _checkAnswer(int index) {
+  void _checkAllAnswers() {
     setState(() {
-      if (_controllers[index].text.trim().toLowerCase() ==
-          correctAnswers[index].toLowerCase()) {
-        _inputColors[index] = Colors.lightGreenAccent;
+      _hasChecked = true;
+      bool allCorrect = true;
+      
+      for (int i = 0; i < 3; i++) {
+        if (_controllers[i].text.trim().toLowerCase() == correctAnswers[i].toLowerCase()) {
+          _inputColors[i] = Colors.lightGreenAccent;
+          _answersCorrect[i] = true;
+        } else {
+          _inputColors[i] = Colors.redAccent.shade100;
+          _answersCorrect[i] = false;
+          allCorrect = false;
+        }
+      }
+
+      if (allCorrect) {
+        // Mark Puzzle Hurt as completed (index 1)
+        ChallengeProgress.markCompleted(1);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text(
+              'All answers correct! Well done!',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            backgroundColor: Colors.green,
+            duration: const Duration(seconds: 2),
+            behavior: SnackBarBehavior.floating,
+            margin: const EdgeInsets.all(16),
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(8)),
+            ),
+            dismissDirection: DismissDirection.horizontal,
+            animation: CurvedAnimation(
+              parent: const AlwaysStoppedAnimation(1),
+              curve: Curves.easeInOut,
+            ),
+          ),
+        );
       } else {
-        _inputColors[index] = Colors.redAccent.shade100;
-        Timer(const Duration(seconds: 1), () {
-          setState(() {
-            _inputColors[index] = Colors.white;
-          });
-        });
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text(
+              'Some answers are incorrect. Try again!',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            backgroundColor: Colors.red,
+            duration: const Duration(seconds: 2),
+            behavior: SnackBarBehavior.floating,
+            margin: const EdgeInsets.all(16),
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(8)),
+            ),
+            dismissDirection: DismissDirection.horizontal,
+            animation: CurvedAnimation(
+              parent: const AlwaysStoppedAnimation(1),
+              curve: Curves.easeInOut,
+            ),
+          ),
+        );
       }
     });
   }
@@ -219,6 +269,41 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                             );
                           }),
                         ),
+                        const SizedBox(height: 20),
+                        // Submit Button
+                        Container(
+                          constraints: const BoxConstraints(maxWidth: 500),
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            onPressed: _checkAllAnswers,
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: lsuPurple,
+                              foregroundColor: Colors.white,
+                              padding: const EdgeInsets.symmetric(vertical: 15),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                            ),
+                            child: const Text(
+                              'Submit Answers',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                              if(ChallengeProgress.isCompleted(10) == true)
+                              Text
+                              (
+                                style: TextStyle
+                                (
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20
+                                ),
+                                "o"
+                              )
                       ],
                     ),
                   ),

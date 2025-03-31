@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../widgets/nav_rail.dart';
+import '../dashboard.dart';
 
 class BengalbotsLab extends StatefulWidget {
   const BengalbotsLab({super.key});
@@ -49,7 +50,11 @@ class _BengalbotsLabState extends State<BengalbotsLab> {
         if (!_isCorrect[i]) allCorrect = false;
       });
     }
-    if (!allCorrect) {
+    if (allCorrect) {
+      // Mark Bengal Bots Lab as completed (index 6)
+      ChallengeProgress.markCompleted(6);
+      _showSuccessDialog();
+    } else {
       _showTryAgainDialog();
     }
   }
@@ -61,6 +66,19 @@ class _BengalbotsLabState extends State<BengalbotsLab> {
         return AlertDialog(
           title: const Text('Try Again!'),
           content: const Text('The answer is incorrect.'),
+          actions: [TextButton(child: const Text('OK'), onPressed: () => Navigator.of(context).pop())],
+        );
+      },
+    );
+  }
+
+  void _showSuccessDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Success!'),
+          content: const Text('You found the correct answer!'),
           actions: [TextButton(child: const Text('OK'), onPressed: () => Navigator.of(context).pop())],
         );
       },
@@ -94,7 +112,7 @@ class _BengalbotsLabState extends State<BengalbotsLab> {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 16.0),
                     child: IconButton(
-                      icon: const Icon(Icons.menu, color: lsuCorpPurple),
+                      icon: const Icon(Icons.menu, color: lsuGold),
                       onPressed: () {
                         setState(() {
                           _isNavRailExtended = !_isNavRailExtended;
@@ -120,12 +138,12 @@ class _BengalbotsLabState extends State<BengalbotsLab> {
                               color: lsuGold,
                             ),
                           ),
-                          SizedBox(height:20.0),
+                          const SizedBox(height: 20.0),
                           const Text(
-                            'Find the clue that is hidden in sight. '
-                            'A vessel floats, but here’s the key—\n'
-                            'It comes with a measure, marked in g. '
-                            'Seek the ship, don’t drift away!',
+                            'Find the clue that is hidden in sight.\n'
+                            'A vessel floats, but here\'s the key—\n'
+                            'It comes with a measure, marked in g.\n'
+                            'Seek the ship, don\'t drift away!',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 25,
@@ -199,6 +217,17 @@ class _BengalbotsLabState extends State<BengalbotsLab> {
                               ),
                             ),
                           ),
+                          SizedBox(height:20),
+                              if(ChallengeProgress.isCompleted(10) == true)
+                              Text
+                              (
+                                style: TextStyle
+                                (
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20
+                                ),
+                                "h"
+                              )
                         ],
                       ),
                     ),

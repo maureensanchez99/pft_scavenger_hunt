@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../widgets/nav_rail.dart';
+import '../dashboard.dart';
 
 class ChevronCenter extends StatefulWidget {
   const ChevronCenter({super.key});
@@ -20,7 +21,7 @@ class _ChevronCenterState extends State<ChevronCenter> {
   bool _hasChecked = false;
   String _hint = "";
   
-  static const String correctAnswer = "boom";
+  static const String correctAnswer = "ZEBSOLK";
   static const String hintText = "Hint: Look for the 3D printer in the Chevron Center. The answer might be printed there!";
 
   @override
@@ -32,12 +33,60 @@ class _ChevronCenterState extends State<ChevronCenter> {
   void _checkAnswer() {
     setState(() {
       _hasChecked = true;
-      if (_answerController.text.trim().toLowerCase() == correctAnswer) {
+      if (_answerController.text.trim().toLowerCase() == correctAnswer.toLowerCase()) {
         _isCorrect = true;
-        _showSuccessDialog();
+        // Mark Chevron Center as completed (index 8)
+        ChallengeProgress.markCompleted(8);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text(
+              'Correct! Well done!',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            backgroundColor: Colors.green,
+            duration: const Duration(seconds: 2),
+            behavior: SnackBarBehavior.floating,
+            margin: const EdgeInsets.all(16),
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(8)),
+            ),
+            dismissDirection: DismissDirection.horizontal,
+            animation: CurvedAnimation(
+              parent: const AlwaysStoppedAnimation(1),
+              curve: Curves.easeInOut,
+            ),
+          ),
+        );
       } else {
         _isCorrect = false;
-        _showTryAgainDialog();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text(
+              'Try again!',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            backgroundColor: Colors.red,
+            duration: const Duration(seconds: 2),
+            behavior: SnackBarBehavior.floating,
+            margin: const EdgeInsets.all(16),
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(8)),
+            ),
+            dismissDirection: DismissDirection.horizontal,
+            animation: CurvedAnimation(
+              parent: const AlwaysStoppedAnimation(1),
+              curve: Curves.easeInOut,
+            ),
+          ),
+        );
       }
     });
   }
@@ -120,31 +169,6 @@ class _ChevronCenterState extends State<ChevronCenter> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: lsuGold,
-        foregroundColor: lsuPurple,
-        toolbarHeight: 120, // Increased height to accommodate logo and title
-        flexibleSpace: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              'assets/lsu_logo.png',
-              width: 150,
-              height: 50,
-            ),
-            const SizedBox(height: 16), // Space equal to the S height
-            const Text(
-              'Chevron Center',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.w600,
-                color: Color(0xFF461D7C),
-              ),
-            ),
-          ],
-        ),
-        centerTitle: true,
-      ),
       body: Stack(
         children: [
           // Main content
@@ -152,19 +176,49 @@ class _ChevronCenterState extends State<ChevronCenter> {
             color: Colors.white,
             child: Column(
               children: [
-                // Hamburger menu at the top left
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 16.0, top: 16.0),
-                    child: IconButton(
-                      icon: const Icon(Icons.menu, color: lsuPurple),
-                      onPressed: () {
-                        setState(() {
-                          _isNavRailExtended = !_isNavRailExtended;
-                        });
-                      },
-                    ),
+                // Logo and title at the top
+                Padding(
+                  padding: const EdgeInsets.only(top: 40.0),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          IconButton(
+                            icon: const Icon(Icons.menu, color: lsuPurple),
+                            onPressed: () {
+                              setState(() {
+                                _isNavRailExtended = !_isNavRailExtended;
+                              });
+                            },
+                          ),
+                          Expanded(
+                            child: Center(
+                              child: Image.asset(
+                                'assets/lsu_logo.png',
+                                width: 150,
+                                height: 50,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 48, // Match the width of the menu button for balance
+                            child: IconButton(
+                              icon: const Icon(Icons.menu, color: Colors.transparent),
+                              onPressed: null,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 16),
+                      const Text(
+                        'Chevron Center',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xFF461D7C),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 
@@ -274,6 +328,17 @@ class _ChevronCenterState extends State<ChevronCenter> {
                             ],
                           ),
                         ),
+                        SizedBox(height:20),
+                              if(ChallengeProgress.isCompleted(10) == true)
+                              Text
+                              (
+                                style: TextStyle
+                                (
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20
+                                ),
+                                "u"
+                              )
                       ],
                     ),
                   ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../widgets/nav_rail.dart';
+import '../dashboard.dart';
 
 
 // Foolish Code
@@ -33,6 +34,8 @@ class _RiddlePassageState extends State<RiddlePassage> {
       {
         questionDone = true;
         answerMessage = "You got it right! Good Job";
+        // Mark Riddle Passage as completed (index 0)
+        ChallengeProgress.markCompleted(0);
       }
       else
       {
@@ -337,6 +340,17 @@ class _RiddlePassageState extends State<RiddlePassage> {
                                     )
                                   )
                                 )
+                              ),
+                              SizedBox(height:20),
+                              if(ChallengeProgress.isCompleted(10) == true)
+                              Text
+                              (
+                                style: TextStyle
+                                (
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20
+                                ),
+                                "f"
                               )
                           ], //children
                         ),

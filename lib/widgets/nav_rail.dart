@@ -118,6 +118,7 @@ class _ScavengerHuntNavRailState extends State<ScavengerHuntNavRail> {
   
   Widget _buildDestinationTile(int index, String label, IconData icon, Widget destination) {
     final bool isSelected = widget.selectedIndex == index;
+    final bool isUnlocked = index == 0 || ChallengeProgress.isCompleted(index - 1);
     
     return ListTile(
       leading: Icon(
@@ -132,8 +133,32 @@ class _ScavengerHuntNavRailState extends State<ScavengerHuntNavRail> {
         ),
       ),
       tileColor: isSelected ? Colors.white.withOpacity(0.1) : null,
+      trailing: isUnlocked ? null : const Icon(Icons.lock, color: Colors.white54, size: 16),
       onTap: () {
         if (index == widget.selectedIndex) return;
+        
+        if (!isUnlocked) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: const Text(
+                'Complete the previous challenge first!',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              backgroundColor: Colors.red,
+              duration: const Duration(seconds: 2),
+              behavior: SnackBarBehavior.floating,
+              margin: const EdgeInsets.all(16),
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+              ),
+            ),
+          );
+          return;
+        }
         
         Navigator.of(context).pushReplacement(
           PageRouteBuilder(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../widgets/nav_rail.dart';
+import '../dashboard.dart';
 
 // Foolish Code
 
@@ -20,7 +21,7 @@ class _SodukuPuzzleState extends State<SodukuPuzzle> {
   // State for nav rail
   bool _isNavRailExtended = false;
   bool questionDone = false;
-  final String correctAnswer = "12345";
+  final String correctAnswer = "55523";
   String answerMessage = "";
   final inputAnswer = TextEditingController();
   bool hint1Press = false;
@@ -51,6 +52,8 @@ class _SodukuPuzzleState extends State<SodukuPuzzle> {
       {
         questionDone = true;
         answerMessage = "You got it right! Good Job";
+        // Mark Sudoku puzzle as completed (index 2)
+        ChallengeProgress.markCompleted(2);
       }
       else
       {
@@ -371,6 +374,17 @@ class _SodukuPuzzleState extends State<SodukuPuzzle> {
                                     )
                                   )
                                 )
+                              ),
+                              SizedBox(height:20),
+                              if(ChallengeProgress.isCompleted(10) == true)
+                              Text
+                              (
+                                style: TextStyle
+                                (
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20
+                                ),
+                                "o"
                               )
                            //c
                           // Row
