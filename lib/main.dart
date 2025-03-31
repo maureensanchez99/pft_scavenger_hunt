@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'PFT Scavenger Hunt',
+      title: 'PFT Scavenger Hunt - The best fun you will ever have',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFF461D7C)),
         useMaterial3: true,
