@@ -140,26 +140,16 @@ class _PftPageState extends State<PftPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const Text(
-                            'PFT Values',
-                            style: TextStyle(
-                              fontSize: 35,
-                              fontWeight: FontWeight.w800,
-                              color: lsuPurple,
-                            ),
-                          ),
-                          SizedBox(height: 20.0),
-                          const Text(
                             'Patrick F Taylor Hall did not name itself,\n'
                             'Come out and find the dedication to our alumni that we honor.\n',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontStyle: FontStyle.italic,
-                              fontSize: 25,
+                              fontSize: 20,
                               fontWeight: FontWeight.w600,
                               color: lsuPurple,
                             ),
                           ),
-                          const SizedBox(height: 15.0),
                           const Text(
                             'What are the three values that he demands of us as students?', 
                             textAlign: TextAlign.center,
@@ -169,7 +159,7 @@ class _PftPageState extends State<PftPage> {
                               fontWeight: FontWeight.bold,
                             )
                           ),
-                          const SizedBox(height: 20),
+
                             Container(
                             constraints: const BoxConstraints(maxWidth: 500),
                             child: ListView.builder(
