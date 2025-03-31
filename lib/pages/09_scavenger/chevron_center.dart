@@ -328,6 +328,17 @@ class _ChevronCenterState extends State<ChevronCenter> {
                             ],
                           ),
                         ),
+                        SizedBox(height:20),
+                              if(ChallengeProgress.isCompleted(10) == true)
+                              Text
+                              (
+                                style: TextStyle
+                                (
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20
+                                ),
+                                "u"
+                              )
                       ],
                     ),
                   ),

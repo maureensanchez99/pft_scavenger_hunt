@@ -425,7 +425,17 @@ class _BinaryClueState extends State<BinaryClue>
                           ],
                         ),
 
-                        // Add your content here
+                        SizedBox(height:20),
+                              if(ChallengeProgress.isCompleted(10) == true)
+                              Text
+                              (
+                                style: TextStyle
+                                (
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20
+                                ),
+                                "l"
+                              )// Add your content here
                       ],
                     ),
                   ),

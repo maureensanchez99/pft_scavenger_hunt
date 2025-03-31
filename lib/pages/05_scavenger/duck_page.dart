@@ -283,7 +283,18 @@ class _DuckPageState extends State<DuckPage> {
                                       )
                                     )
                                   )
-                                )
+                                ),
+                                SizedBox(height:20),
+                              if(ChallengeProgress.isCompleted(10) == true)
+                              Text
+                              (
+                                style: TextStyle
+                                (
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20
+                                ),
+                                "i"
+                              )
                           ],
                         ),
                       )
