@@ -125,7 +125,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           const SizedBox(width: 4),
                           Text(
-                            'access the challenges',
+                            'Access the Challenges Here',
                             style: TextStyle(
                               color: lsuGold,
                               fontSize: 16,

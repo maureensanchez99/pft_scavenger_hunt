@@ -40,7 +40,7 @@ class _ChevronCenterState extends State<ChevronCenter> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: const Text(
-              'Correct! Well done!',
+              'Correct! Well done! Move to the next Challenge.',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 16,

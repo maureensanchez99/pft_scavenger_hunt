@@ -223,6 +223,7 @@ class _PaneraPageState extends State<PaneraPage>
       }
     });
   }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -230,17 +231,15 @@ class _PaneraPageState extends State<PaneraPage>
       backgroundColor: Colors.white,
       body: Stack(
         children: [
-          // Main content
           // Background image
           Opacity(
-            opacity:
-                0.3, // Add opacity (0.0 = fully transparent, 1.0 = fully opaque)
+            opacity: 0.3,
             child: Container(
               decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage('../../../assets/lsu_oak_cropped.png'),
                   fit: BoxFit.cover,
-                  scale: .3, // Changed from 0.5 to 0.3 for even more zoom
+                  scale: .3,
                   alignment: Alignment.center,
                 ),
               ),
