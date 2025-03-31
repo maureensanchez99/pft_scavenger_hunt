@@ -4,7 +4,7 @@ A Flutter App.
 
 ## Getting Started
 
-hi
+hi guys
 
 
 A few resources to get you started if this is your first Flutter project:
