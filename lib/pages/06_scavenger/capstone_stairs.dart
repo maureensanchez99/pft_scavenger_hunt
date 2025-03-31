@@ -10,8 +10,8 @@ class CapstoneStairs extends StatefulWidget {
 }
 
 class _CapstoneStairsState extends State<CapstoneStairs> {
-  // LSU colors
-  static const Color lsuPurple = Color(0xFF461D7C);
+  // LSU brand colors
+  static const Color lsuPurple = Color(0xFF461D7C); 
   static const Color lsuGold = Color(0xFFFDD023);
   static const Color lsuLightGold = Color(0xFFF1EEDB);
   static const Color lsuCorpPurple = Color(0xFF3C1053);
@@ -40,6 +40,7 @@ class _CapstoneStairsState extends State<CapstoneStairs> {
     super.dispose();
   }
 
+  // checks if the inputted answer is correct or not
   void _checkAnswer() {
     bool allCorrect = true;
     for (int i = 0; i < correctWords.length; i++) {
@@ -58,6 +59,7 @@ class _CapstoneStairsState extends State<CapstoneStairs> {
     }
   }
 
+  // shows clue on where to go next after solving the correct answer
   void _showClueDialog() {
     showDialog(
       context: context,
