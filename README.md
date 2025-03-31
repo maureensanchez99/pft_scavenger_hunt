@@ -1,6 +1,6 @@
 # pft_scavenger_hunt
 
-A new Flutter project.
+AFlutter project.
 
 ## Getting Started
 
