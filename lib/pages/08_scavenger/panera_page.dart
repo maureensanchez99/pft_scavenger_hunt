@@ -232,8 +232,7 @@ class _PaneraPageState extends State<PaneraPage>
         children: [
           // Background image
           Opacity(
-            opacity:
-                0.31, // Add opacity (0.0 = fully transparent, 1.0 = fully opaque)
+            opacity: 0.3,
             child: Container(
               decoration: const BoxDecoration(
                 image: DecorationImage(
