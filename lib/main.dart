@@ -22,5 +22,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-//According to all known laws of aviation, there's no way a bee should be able to fly
