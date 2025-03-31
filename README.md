@@ -51,3 +51,5 @@ This project was developed using Flutter and follows standard Flutter developmen
 - Minseo
 - Maureen
 - Ronald
+- JP
+- Eby
