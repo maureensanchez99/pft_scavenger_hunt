@@ -3,6 +3,7 @@ import '../../widgets/nav_rail.dart';
 import '../dashboard.dart';
 
 // Foolish Code
+// Needs to be more foolish
 
 class SodukuPuzzle extends StatefulWidget {
   const SodukuPuzzle({super.key});
