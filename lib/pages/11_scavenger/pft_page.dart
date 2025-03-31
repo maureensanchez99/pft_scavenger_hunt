@@ -14,7 +14,7 @@ class _PftPageState extends State<PftPage> {
   // LSU colors
   static const Color lsuPurple = Color(0xFF461D7C); // LSU Purple
   static const Color lsuGold = Color(0xFFFDD023);   // LSU Gold
-  static const Color lsuCorpPurple = Color(0xFF3C1053);
+  static const Color lsuCorpPurple = Color(0xFF3C1053); // LSU Corporate Purple
   
   final List<String> phrase = ["hard work", "integrity", "guts"];
   final List<TextEditingController> _controllers = [];
@@ -42,6 +42,7 @@ class _PftPageState extends State<PftPage> {
     super.dispose();
   }
 
+  // checks if inputted answer is correct
   void _checkAnswer() {
     List<String> userAnswers = _controllers.map((controller) => controller.text.trim().toUpperCase()).toList();
     List<String> correctAnswers = phrase.map((word) => word.toUpperCase()).toList();
@@ -67,6 +68,7 @@ class _PftPageState extends State<PftPage> {
     }
   }
 
+  // shows dialog if user got answer incorrect
   void _showTryAgainDialog() {
     showDialog(
       context: context,
@@ -80,6 +82,7 @@ class _PftPageState extends State<PftPage> {
     );
   }
 
+  // shows if user got answer correct
   void _showSuccessDialog() {
     showDialog(
       context: context,
