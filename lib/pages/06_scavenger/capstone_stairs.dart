@@ -90,7 +90,8 @@ class _CapstoneStairsState extends State<CapstoneStairs> {
       body: Stack(
         children: <Widget>[
           // Main content
-          Container(
+          SingleChildScrollView(
+          child: Container(
             color: lsuLightGold,
             child: Center(
               child: Padding(
@@ -218,6 +219,7 @@ class _CapstoneStairsState extends State<CapstoneStairs> {
                 ),
               ),
             ),
+          ),
           ),
           if (_isNavRailExtended)
             Positioned(

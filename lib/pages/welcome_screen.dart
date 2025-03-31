@@ -3,6 +3,7 @@ import 'package:confetti/confetti.dart';
 import 'dart:math' as math;
 import '01_scavenger/riddle_passage.dart';
 import '03_scavenger/soduku_puzzle.dart';
+import '../pages/06_scavenger/capstone_stairs.dart';
 import 'dashboard.dart';
 import 'tutorial_page.dart';
 
@@ -65,7 +66,8 @@ class _WelcomeScreenState extends State<WelcomeScreen>
       Navigator.of(context).pushReplacement(
         PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
-              const TutorialPage(),
+              //const TutorialPage(),
+              const CapstoneStairs(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return FadeTransition(
               opacity: animation,
