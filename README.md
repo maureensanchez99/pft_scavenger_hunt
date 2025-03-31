@@ -48,4 +48,6 @@ This project was developed using Flutter and follows standard Flutter developmen
 
 ## Credits
 
-- Minseo Lee
+- Minseo
+- Maureen
+- Ronald
