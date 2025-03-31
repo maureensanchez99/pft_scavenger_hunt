@@ -58,7 +58,7 @@ class _RoboticsRoomState extends State<RoboticsRoom> {
 
   void _checkAnswer() {
     if (_controller.text.trim().toLowerCase() == _correctAnswer) {
-      // Mark Robot on 3rd Floor as completed (index 9)
+      // Mark Robotics Room as completed (index 9)
       ChallengeProgress.markCompleted(9);
       setState(() {
         _feedback = 'Correct! Well done!';
