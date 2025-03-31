@@ -29,6 +29,7 @@ The app uses a custom navigation system with a fixed sidebar and a hidden naviga
 ## Challenge Sequence
 
 The scavenger hunt follows this specific order:
+
 1. Riddle Passage
 2. Puzzle Hunt
 3. Sudoku Puzzle
@@ -48,10 +49,10 @@ This project was developed using Flutter and follows standard Flutter developmen
 
 ## Credits
 
-- Minseo
 - Maureen
 - Ronald
 - JP
 - Eby
 - Trent
-
+- Cleveland
+- Minseo
