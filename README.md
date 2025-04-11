@@ -6,6 +6,11 @@ A Flutter-based interactive scavenger hunt application designed to guide users t
 
 This application takes users on an engaging journey through various locations in Patrick F. Taylor Hall, challenging them with puzzles, riddles, and interactive tasks. The app features LSU's signature purple and gold color scheme and includes a custom navigation system to help users explore the building.
 
+## Demo Video
+https://github.com/user-attachments/assets/12882574-4bb7-458f-a68f-84360bce9b3f
+
+
+
 ## Features
 
 - **Interactive Challenges**: 12 unique challenges located throughout the building
@@ -49,10 +54,10 @@ This project was developed using Flutter and follows standard Flutter developmen
 
 ## Credits
 
-- Maureen
-- Ronald
-- JP
-- Eby
-- Trent
-- Cleveland
-- Minseo
+- Maureen Sanchez - <a href="https://www.linkedin.com/in/maureen-sanchez/">LinkedIn</a>
+- Ronald Gibson III - <a href="https://www.linkedin.com/in/rongib3/">LinkedIn</a>
+- JP Gonzalez - <a href="https://www.linkedin.com/in/maybe-jp-gonzalez/">LinkedIn</a>
+- Eby Nwosu - <a href="https://www.linkedin.com/in/eberechi-nwosu/">LinkedIn</a>
+- Trent Ellis II - <a href="https://www.linkedin.com/in/trent-ellis-ii/">LinkedIn</a>
+- Cleveland Martin - <a href="https://www.linkedin.com/in/clevelandmartin/">LinkedIn</a>
+- Minseo Leo - <a href="https://www.linkedin.com/in/mwnseo/">LinkedIn</a>
